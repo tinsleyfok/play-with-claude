@@ -145,6 +145,55 @@
   color: #000;
 }
 
+.nav-item-disabled {
+  opacity: 0.35;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* Theme section at bottom of drawer */
+.nav-theme-section {
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.nav-theme-row {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+
+.nav-theme-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 4px;
+  border: none;
+  background: transparent;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: #666;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.nav-theme-btn:hover {
+  background: rgba(0, 0, 0, 0.06);
+  color: #333;
+}
+
+.nav-theme-btn.active {
+  background: #fff;
+  color: #000;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
 /* Dark theme support (onboarding page) */
 body[data-theme="dark"] .hamburger-btn {
   background: rgba(255, 255, 255, 0.12);
@@ -156,4 +205,64 @@ body[data-theme="dark"] .hamburger-btn:hover {
 
 body[data-theme="dark"] .hamburger-btn span {
   background: #fff;
+}
+
+/* Dark mode: darken the drawer itself */
+body[data-theme="dark"] .nav-drawer {
+  background: #1c1c1e;
+}
+
+body[data-theme="dark"] .nav-drawer-title {
+  color: #555;
+}
+
+body[data-theme="dark"] .nav-divider {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+body[data-theme="dark"] .nav-item {
+  color: #bbb;
+}
+
+body[data-theme="dark"] .nav-item:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
+}
+
+body[data-theme="dark"] .nav-item.active {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+body[data-theme="dark"] .nav-sub-item {
+  color: #777;
+}
+
+body[data-theme="dark"] .nav-sub-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #bbb;
+}
+
+body[data-theme="dark"] .nav-sub-item.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+body[data-theme="dark"] .nav-theme-row {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+body[data-theme="dark"] .nav-theme-btn {
+  color: #888;
+}
+
+body[data-theme="dark"] .nav-theme-btn:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: #ccc;
+}
+
+body[data-theme="dark"] .nav-theme-btn.active {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  box-shadow: none;
 }

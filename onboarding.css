@@ -10,52 +10,28 @@ body {
   position: relative;
 }
 
-.theme-switcher {
+/* Small icon toggle button — desktop only */
+.theme-icon-btn {
   position: fixed;
   top: 20px;
   right: 20px;
   z-index: 1000;
-  display: flex;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.1);
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(10px);
-  border-radius: 12px;
-  padding: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.theme-option {
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 20px;
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  border: none;
-  background: transparent;
-  color: rgba(255, 255, 255, 0.7);
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 14px;
-  font-weight: 500;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  justify-content: center;
+  transition: background 0.2s ease;
 }
 
-.theme-option:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.theme-option.active {
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
-}
-
-.theme-icon {
-  font-size: 16px;
-}
-
-.theme-label {
-  font-size: 14px;
+.theme-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
 }
 
 .phone {
@@ -103,43 +79,8 @@ body {
     border-radius: 0 !important;
   }
 
-  /* Theme switcher: light mode on mobile (default) */
-  .theme-switcher {
-    background: rgba(0, 0, 0, 0.07);
-    border-color: rgba(0, 0, 0, 0.1);
-  }
-
-  .theme-option {
-    color: rgba(0, 0, 0, 0.6);
-  }
-
-  .theme-option:hover {
-    background: rgba(0, 0, 0, 0.08);
-    color: rgba(0, 0, 0, 0.9);
-  }
-
-  .theme-option.active {
-    background: rgba(0, 0, 0, 0.14);
-    color: #000;
-  }
-
-  /* Theme switcher: dark mode on mobile */
-  body[data-theme="dark"] .theme-switcher {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.1);
-  }
-
-  body[data-theme="dark"] .theme-option {
-    color: rgba(255, 255, 255, 0.7);
-  }
-
-  body[data-theme="dark"] .theme-option:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.9);
-  }
-
-  body[data-theme="dark"] .theme-option.active {
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff;
+  /* Hide icon toggle on mobile — theme is in the drawer */
+  .theme-icon-btn {
+    display: none;
   }
 }
