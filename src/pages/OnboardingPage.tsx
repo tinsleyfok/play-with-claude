@@ -36,6 +36,14 @@ export function OnboardingPage() {
           alt="Phone"
           className="hidden md:block w-full h-auto max-h-[90vh] relative z-2 pointer-events-none"
         />
+        {/* Fill the phone screen area with theme bg (behind the inset container) */}
+        <div
+          className="hidden md:block absolute z-0 rounded-[56px] overflow-hidden"
+          style={{
+            top: 6, left: 6, right: 6, bottom: 6,
+            background: isDark ? "#000" : "#fff",
+          }}
+        />
         <div
           className="phone-container"
           data-theme={theme}
@@ -56,7 +64,7 @@ export function OnboardingPage() {
           </header>
 
           <h1
-            className={`absolute top-[194px] left-0 right-0 m-0 px-[8%] text-[32px] font-semibold leading-[1.2] font-rethink text-center z-5 pointer-events-none transition-opacity duration-350 ${
+            className={`absolute top-[18%] left-0 right-0 m-0 px-[8%] text-[32px] font-semibold leading-[1.2] font-rethink text-center z-5 pointer-events-none transition-opacity duration-350 ${
               settled ? "opacity-100" : "opacity-0"
             } ${isDark ? "text-white" : "text-black"}`}
           >

@@ -46,8 +46,8 @@ export function InboxPage() {
     <div>
       {/* Fixed header - always visible */}
       <div
-        className="fixed top-0 left-0 right-0 z-40 flex items-center justify-center h-12 px-4"
-        style={{ background: isDark ? "#0f0f0f" : "#ffffff" }}
+        className="sticky top-0 left-0 right-0 z-40 flex items-center justify-center h-12 px-4"
+        style={{ background: isDark ? "#000000" : "#ffffff" }}
       >
         <span
           className="font-rethink text-[18px] font-bold leading-[25px]"
@@ -58,7 +58,7 @@ export function InboxPage() {
       </div>
 
       {/* Content */}
-      <div className="pt-12">
+      <div>
         {/* Activities */}
         <div className="px-4 flex gap-4 py-4">
           {ACTIVITIES.map((a, i) => (

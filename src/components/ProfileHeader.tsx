@@ -11,17 +11,13 @@ export function ProfileHeader() {
   const isDark = theme === "dark";
   const textColor = isDark ? "#ffffff" : "#000000";
   const subtleColor = isDark ? "rgba(255,255,255,0.48)" : "rgba(0,0,0,0.48)";
+  const avatarUrl = `${import.meta.env.BASE_URL}Image/avatar-tinsley.png`;
 
   return (
-    <div className="flex flex-col items-center pt-6 pb-4 px-6">
-      <div
-        className="w-[72px] h-[72px] rounded-full mb-3"
-        style={{ background: isDark ? "#2a2a2a" : "#e0e0e0" }}
-      />
-
-      <h2 className="font-rethink text-[20px] font-bold m-0 mb-3" style={{ color: textColor }}>
-        tinsleyfok
-      </h2>
+    <div className="flex flex-col items-center pt-4 pb-4 px-6">
+      <div className="w-[72px] h-[72px] rounded-full mb-3 overflow-hidden">
+        <img src={avatarUrl} alt="tinsleyfok" className="w-full h-full object-cover" />
+      </div>
 
       <div className="flex items-center gap-6 mb-3">
         {STATS.map((s) => (
@@ -40,22 +36,21 @@ export function ProfileHeader() {
         Designing something fun
       </p>
 
-      <div className="flex gap-3 w-full max-w-[354px]">
+      <div className="flex gap-3 w-full max-w-[354px] px-2">
         <button
           className="flex-1 h-[38px] rounded-full font-rethink text-[14px] font-medium cursor-pointer border-none"
           style={{
-            background: isDark ? "#ffffff" : "#000000",
-            color: isDark ? "#000000" : "#ffffff",
+            background: isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.03)",
+            color: textColor,
           }}
         >
           Edit profile
         </button>
         <button
-          className="flex-1 h-[38px] rounded-full font-rethink text-[14px] font-medium cursor-pointer"
+          className="flex-1 h-[38px] rounded-full font-rethink text-[14px] font-medium cursor-pointer border-none"
           style={{
-            background: "transparent",
+            background: isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.03)",
             color: textColor,
-            border: `1.5px solid ${isDark ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.15)"}`,
           }}
         >
           Share profile

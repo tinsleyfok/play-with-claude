@@ -43,9 +43,9 @@ export function FeedTopNav() {
 
   return (
     <div
-      className="fixed top-0 left-0 right-0 z-40 flex items-center h-12 px-3 transition-transform duration-300"
+      className="sticky top-0 left-0 right-0 z-40 flex items-center h-12 px-3 transition-transform duration-300"
       style={{
-        background: isDark ? "#0f0f0f" : "#ffffff",
+        background: isDark ? "#000000" : "#ffffff",
         transform: hidden ? "translateY(-100%)" : "translateY(0)",
       }}
     >

@@ -9,16 +9,26 @@ export function AppPage() {
   const isDark = theme === "dark";
   const [createOpen, setCreateOpen] = useState(false);
 
+  const appBg = isDark ? "#000000" : "#ffffff";
+
   return (
-    <div
-      className="min-h-screen flex flex-col"
-      style={{ background: isDark ? "#0f0f0f" : "#ffffff" }}
-    >
-      <div className="flex-1 pb-14 overflow-y-auto">
-        <Outlet />
+    <div className="app-shell">
+      <div className="app-phone-wrapper">
+        <img
+          src={`${import.meta.env.BASE_URL}Image/Phone.png`}
+          alt="Phone"
+          className="app-phone-img"
+        />
+        <div className="app-phone-screen" style={{ background: appBg }}>
+          <div className="app-screen-inner">
+            <div className="app-content">
+              <Outlet />
+            </div>
+            <BottomMenuBar onCreatePress={() => setCreateOpen(!createOpen)} createOpen={createOpen} />
+            <CreateSheet open={createOpen} onClose={() => setCreateOpen(false)} />
+          </div>
+        </div>
       </div>
-      <BottomMenuBar onCreatePress={() => setCreateOpen(!createOpen)} createOpen={createOpen} />
-      <CreateSheet open={createOpen} onClose={() => setCreateOpen(false)} />
     </div>
   );
 }

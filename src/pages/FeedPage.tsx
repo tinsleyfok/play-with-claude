@@ -245,7 +245,7 @@ export function FeedPage() {
   return (
     <div>
       <FeedTopNav />
-      <div className="grid grid-cols-2 gap-3 px-2 pb-4 pt-12">
+      <div className="grid grid-cols-2 gap-3 px-2 pb-4 pt-1">
         <div className="flex flex-col gap-3 min-w-0">
           {MOCK_LEFT.map((card) => (
             <FeedCard key={card.id} card={card} />
