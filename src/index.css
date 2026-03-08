@@ -321,3 +321,7 @@
   will-change: transform, opacity;
   container-type: inline-size;
 }
+
+.reel-card > * {
+  max-height: 161.11cqi;
+}

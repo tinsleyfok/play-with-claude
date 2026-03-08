@@ -62,7 +62,7 @@ function VideoCardView({ card }: { card: VideoReelCard; isDark: boolean }) {
   return (
     <div
       className="relative rounded-[36px] overflow-hidden w-full"
-      style={{ aspectRatio: "9/15", maxHeight: "calc(166.67cqi - 24px)" }}
+      style={{ aspectRatio: "9/14.5" }}
     >
       <img
         src={card.imageUrl}
@@ -281,7 +281,7 @@ function ArticleCardView({ card, isDark }: { card: ArticleReelCard; isDark: bool
   return (
     <div
       className="w-full rounded-[36px] overflow-hidden flex flex-col"
-      style={{ background: isDark ? "#1c1c1e" : "#ffffff", aspectRatio: "9/15", maxHeight: "calc(166.67cqi - 24px)", border: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.06)"}` }}
+      style={{ background: isDark ? "#1c1c1e" : "#ffffff", aspectRatio: "9/14.5", border: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.06)"}` }}
     >
       {/* Scrollable content area: title + user + meta + body all swipe together */}
       <div className="flex-1 min-h-0 relative">
