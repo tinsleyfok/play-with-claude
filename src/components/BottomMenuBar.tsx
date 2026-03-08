@@ -4,6 +4,7 @@ import { useTheme } from "../hooks/useTheme";
 
 interface BottomMenuBarProps {
   onCreatePress: () => void;
+  onNavigate?: () => void;
   createOpen?: boolean;
 }
 
@@ -101,7 +102,7 @@ function getActiveTab(pathname: string): Tab {
   return "home";
 }
 
-export function BottomMenuBar({ onCreatePress, createOpen }: BottomMenuBarProps) {
+export function BottomMenuBar({ onCreatePress, onNavigate, createOpen }: BottomMenuBarProps) {
   const { theme } = useTheme();
   const isDark = theme === "dark";
   const { pathname } = useLocation();
@@ -110,7 +111,7 @@ export function BottomMenuBar({ onCreatePress, createOpen }: BottomMenuBarProps)
 
   return (
     <div
-      className="absolute bottom-0 left-0 right-0 pb-4"
+      className="absolute bottom-0 left-0 right-0"
       style={{ background: isDark ? "#000000" : "#f2f2f2", zIndex: createOpen ? 210 : 50 }}
     >
       <div
@@ -132,6 +133,7 @@ export function BottomMenuBar({ onCreatePress, createOpen }: BottomMenuBarProps)
                 if (tab.id === "create") {
                   onCreatePress();
                 } else if (tab.path) {
+                  onNavigate?.();
                   navigate(tab.path);
                 }
               }}

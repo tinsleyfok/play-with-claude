@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useLayoutEffect, useCallback, useMemo } from "react";
 import { useTheme } from "../hooks/useTheme";
 import { IconLike, IconComment, IconBookmark, IconShare, IconMore, IconQuoteOpen, IconQuoteClose, IconPlus } from "./Icons";
 
@@ -189,16 +189,6 @@ function DiscussionCardView({ card, isDark }: { card: DiscussionReelCard; isDark
             </span>
             <FollowButton isDark={isDark} />
           </div>
-          {card.description ? (
-            <p className="font-rethink text-[15px] m-0 leading-snug line-clamp-3" style={{ color: textColor }}>
-              {card.description}
-              <span style={{ color: subtleColor }}> more</span>
-            </p>
-          ) : card.timestamp ? (
-            <p className="font-rethink text-[14px] m-0" style={{ color: subtleColor }}>
-              {card.timestamp}
-            </p>
-          ) : null}
         </div>
         <div className="px-5 pb-4 pt-1 flex-shrink-0">
           <ActionBar card={card} isDark={isDark} />
@@ -218,28 +208,46 @@ function ArticleCardView({ card, isDark }: { card: ArticleReelCard; isDark: bool
   const dotBright = isDark ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.4)";
 
   const PAGE_PAD = 24;
+  const GAP = 16;
 
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const paragraphs = useMemo(() => card.body.split(/\n\n+/), [card.body]);
+
+  const outerRef = useRef<HTMLDivElement>(null);
   const measureRef = useRef<HTMLDivElement>(null);
-  const [pageCount, setPageCount] = useState(1);
-  const [pageHeight, setPageHeight] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [pageGroups, setPageGroups] = useState<number[][]>([[]]);
   const [activePage, setActivePage] = useState(0);
 
   const remeasure = useCallback(() => {
-    const el = measureRef.current;
-    if (!el) return;
-    const h = el.clientHeight;
-    const fullH = el.scrollHeight;
-    setPageHeight(h);
-    if (fullH <= h) {
-      setPageCount(1);
-    } else {
-      const step = h - PAGE_PAD;
-      setPageCount(1 + Math.ceil((fullH - step) / step));
-    }
-  }, []);
+    const outer = outerRef.current;
+    const measure = measureRef.current;
+    if (!outer || !measure) return;
 
-  useEffect(() => { remeasure(); }, [remeasure, card.body]);
+    const pageH = outer.clientHeight;
+    const headerEl = measure.querySelector<HTMLElement>("[data-header]");
+    const paraEls = measure.querySelectorAll<HTMLElement>("[data-para]");
+    if (!headerEl || paraEls.length === 0) { setPageGroups([[]]); return; }
+
+    const headerH = headerEl.offsetHeight;
+    const groups: number[][] = [[]];
+    let budget = pageH - headerH;
+    let used = 0;
+
+    paraEls.forEach((el, i) => {
+      const h = el.offsetHeight + (used > 0 ? GAP : 0);
+      if (used + h > budget && groups[groups.length - 1].length > 0) {
+        groups.push([]);
+        budget = pageH - PAGE_PAD;
+        used = 0;
+      }
+      groups[groups.length - 1].push(i);
+      used += el.offsetHeight + (groups[groups.length - 1].length > 1 ? GAP : 0);
+    });
+
+    setPageGroups(groups);
+  }, [paragraphs]);
+
+  useLayoutEffect(() => { remeasure(); }, [remeasure]);
 
   useEffect(() => {
     window.addEventListener("resize", remeasure);
@@ -252,8 +260,8 @@ function ArticleCardView({ card, isDark }: { card: ArticleReelCard; isDark: bool
     setActivePage(Math.round(el.scrollLeft / el.clientWidth));
   }, []);
 
-  const fullContent = (
-    <div className="flex flex-col gap-4 px-5 pt-10">
+  const header = (
+    <>
       <h2
         className="font-rethink text-[30px] font-bold leading-tight m-0"
         style={{ color: textColor }}
@@ -272,10 +280,7 @@ function ArticleCardView({ card, isDark }: { card: ArticleReelCard; isDark: bool
           {[card.readTime, card.timestamp].filter(Boolean).join(" \u00b7 ")}
         </p>
       )}
-      <p className="font-charter text-[18px] leading-[1.7] m-0" style={{ color: bodyColor }}>
-        {card.body}
-      </p>
-    </div>
+    </>
   );
 
   return (
@@ -283,39 +288,57 @@ function ArticleCardView({ card, isDark }: { card: ArticleReelCard; isDark: bool
       className="w-full rounded-[36px] overflow-hidden flex flex-col"
       style={{ background: isDark ? "#1c1c1e" : "#ffffff", aspectRatio: "9/14.5", border: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.06)"}` }}
     >
-      {/* Scrollable content area: title + user + meta + body all swipe together */}
-      <div className="flex-1 min-h-0 relative">
+      <div ref={outerRef} className="flex-1 min-h-0 relative">
+        {/* Hidden measurement div */}
         <div ref={measureRef} className="absolute inset-0 overflow-hidden" style={{ visibility: "hidden" }}>
-          {fullContent}
+          <div data-header className="flex flex-col gap-4 px-5 pt-6">
+            {header}
+          </div>
+          <div className="flex flex-col gap-4 px-5">
+            {paragraphs.map((p, i) => (
+              <p key={i} data-para className="font-charter text-[18px] leading-[1.7] m-0">
+                {p}
+              </p>
+            ))}
+          </div>
         </div>
+        {/* Paginated content */}
         <div
           ref={scrollRef}
           className="h-full flex overflow-x-auto"
           onScroll={onScroll}
           style={{ scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}
         >
-          {Array.from({ length: pageCount }).map((_, i) => {
-            const step = pageHeight - PAGE_PAD;
-            const offset = i * step;
-            return (
+          {pageGroups.map((group, pageIdx) => (
+            <div
+              key={pageIdx}
+              className="flex-shrink-0 w-full h-full overflow-hidden"
+              style={{ scrollSnapAlign: "start" }}
+            >
               <div
-                key={i}
-                className="flex-shrink-0 w-full h-full overflow-hidden"
-                style={{ scrollSnapAlign: "start", paddingTop: i > 0 ? PAGE_PAD : 0 }}
+                className="flex flex-col gap-4 px-5"
+                style={{ paddingTop: pageIdx === 0 ? 24 : PAGE_PAD }}
               >
-                <div style={{ marginTop: -offset }}>
-                  {fullContent}
-                </div>
+                {pageIdx === 0 && header}
+                {group.map(idx => (
+                  <p
+                    key={idx}
+                    className="font-charter text-[18px] leading-[1.7] m-0"
+                    style={{ color: bodyColor }}
+                  >
+                    {paragraphs[idx]}
+                  </p>
+                ))}
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </div>
       {/* Fixed bottom: dots + action bar */}
       <div className="px-5 pb-4">
-        {pageCount > 1 && (
+        {pageGroups.length > 1 && (
           <div className="flex justify-center gap-1.5 py-2">
-            {Array.from({ length: pageCount }).map((_, i) => (
+            {pageGroups.map((_, i) => (
               <div
                 key={i}
                 className="w-1.5 h-1.5 rounded-full transition-colors duration-200"

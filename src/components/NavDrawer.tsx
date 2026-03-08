@@ -4,21 +4,26 @@ import { useTheme } from "../hooks/useTheme";
 
 interface NavItem {
   to: string;
-  icon: string;
   label: string;
-  children?: { to: string; icon: string; label: string }[];
+  isFolder?: boolean;
+  children?: { to: string; label: string }[];
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { to: "/", icon: "🏠", label: "Home" },
-  { to: "/app", icon: "📁", label: "App" },
+  { to: "/", label: "Home" },
+  {
+    to: "/app",
+    label: "Theme",
+    isFolder: true,
+    children: [{ to: "/app", label: "Modern & Neutral" }],
+  },
   {
     to: "/animation",
-    icon: "📁",
     label: "Animation",
-    children: [{ to: "/animation/onboarding", icon: "📄", label: "Onboarding" }],
+    isFolder: true,
+    children: [{ to: "/animation/onboarding", label: "Onboarding" }],
   },
-  { to: "/inspiration", icon: "📁", label: "Inspiration" },
+  { to: "/inspiration", label: "Inspiration", isFolder: true },
 ];
 
 export function NavDrawer() {
@@ -26,6 +31,13 @@ export function NavDrawer() {
   const { pathname } = useLocation();
   const { theme, toggleTheme } = useTheme();
   const isDark = theme === "dark";
+  const [expanded, setExpanded] = useState<Record<string, boolean>>(() => {
+    const init: Record<string, boolean> = {};
+    NAV_ITEMS.forEach(item => {
+      if (item.children) init[item.to] = true;
+    });
+    return init;
+  });
 
   return (
     <>
@@ -52,56 +64,69 @@ export function NavDrawer() {
 
       {/* Drawer */}
       <nav className={`nav-drawer ${open ? "open" : ""} ${isDark ? "!bg-[#202020]" : ""}`}>
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col gap-0.5">
         {NAV_ITEMS.map((item, i) => {
-          const isActive = pathname === item.to;
+          const isActive = pathname === item.to || item.children?.some(c => pathname === c.to);
+          const textColor = isDark ? "#ebebeb" : "#37352f";
+          const hoverBg = isDark ? "rgba(255,255,255,0.06)" : "rgba(55,53,47,0.06)";
           return (
             <div key={item.to}>
               {i === 1 && (
-                <>
-                  <div className={`h-px my-2 ${isDark ? "bg-[rgba(255,255,255,0.07)]" : "bg-[rgba(55,53,47,0.06)]"}`} />
-                  <div className={`text-[11px] font-semibold uppercase tracking-wider px-3 mb-2 ${isDark ? "text-[#5a5a5a]" : "text-[#b4b4b0]"}`}>
-                    Folders
-                  </div>
-                </>
+                <div className={`h-px my-3 mx-2 ${isDark ? "bg-[rgba(255,255,255,0.08)]" : "bg-[rgba(55,53,47,0.08)]"}`} />
               )}
-              <Link
-                to={item.to}
-                onClick={() => setOpen(false)}
-                className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg no-underline text-[15px] transition-colors ${
-                  isActive
-                    ? isDark
-                      ? "bg-[rgba(255,255,255,0.06)] font-semibold text-[#ebebeb]"
-                      : "bg-[rgba(55,53,47,0.06)] font-semibold text-[#37352f]"
-                    : isDark
-                      ? "text-[#9b9b9b] hover:bg-[rgba(255,255,255,0.04)]"
-                      : "text-[#787774] hover:bg-[rgba(55,53,47,0.04)]"
-                }`}
-              >
-                <span className="text-lg leading-none">{item.icon}</span>{" "}
-                {item.label}
-              </Link>
-              {item.children && (
-                <div className="flex flex-col mt-1">
-                  {item.children.map((child) => (
-                    <Link
-                      key={child.to}
-                      to={child.to}
-                      onClick={() => setOpen(false)}
-                      className={`flex items-center gap-2.5 py-2 pl-9 pr-3 rounded-lg no-underline text-[13px] transition-colors ${
-                        pathname === child.to
-                          ? isDark
-                            ? "bg-[rgba(255,255,255,0.06)] font-semibold text-[#ebebeb]"
-                            : "bg-[rgba(55,53,47,0.06)] font-semibold text-[#37352f]"
-                          : isDark
-                            ? "text-[#5a5a5a] hover:bg-[rgba(255,255,255,0.04)] hover:text-[#9b9b9b]"
-                            : "text-[#b4b4b0] hover:bg-[rgba(55,53,47,0.04)] hover:text-[#787774]"
-                      }`}
-                    >
-                      <span className="text-lg leading-none">{child.icon}</span>{" "}
-                      {child.label}
-                    </Link>
-                  ))}
+              {item.children ? (
+                <button
+                  onClick={() => setExpanded(prev => ({ ...prev, [item.to]: !prev[item.to] }))}
+                  className="flex items-center justify-between w-full px-3 py-3 rounded-lg border-none cursor-pointer text-[15px] transition-colors text-left bg-transparent"
+                  style={{
+                    color: textColor,
+                    fontWeight: 600,
+                  }}
+                >
+                  {item.label}
+                  <svg
+                    width="12" height="12" viewBox="0 0 12 12" fill="none"
+                    className="transition-transform duration-200 flex-shrink-0"
+                    style={{ transform: expanded[item.to] ? "rotate(90deg)" : "rotate(0deg)", opacity: 0.4 }}
+                  >
+                    <path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+              ) : (
+                <Link
+                  to={item.to}
+                  onClick={() => setOpen(false)}
+                  className="flex items-center px-3 py-3 rounded-lg no-underline text-[15px] transition-colors"
+                  style={{
+                    color: textColor,
+                    fontWeight: item.isFolder ? 600 : 400,
+                    background: isActive ? hoverBg : "transparent",
+                  }}
+                >
+                  {item.label}
+                </Link>
+              )}
+              {item.children && expanded[item.to] && (
+                <div className="flex flex-col gap-0.5 mt-0.5">
+                  {item.children.map((child) => {
+                    const childActive = pathname === child.to;
+                    return (
+                      <Link
+                        key={child.to}
+                        to={child.to}
+                        onClick={() => setOpen(false)}
+                        className="flex items-center gap-2 py-2.5 pl-3 pr-3 rounded-lg no-underline text-[14px] transition-colors"
+                        style={{
+                          color: textColor,
+                          opacity: childActive ? 1 : 0.65,
+                          background: childActive ? hoverBg : "transparent",
+                        }}
+                      >
+                        <span className="w-[5px] h-[5px] rounded-full flex-shrink-0" style={{ background: isDark ? "rgba(255,255,255,0.25)" : "rgba(55,53,47,0.25)" }} />
+                        {child.label}
+                      </Link>
+                    );
+                  })}
                 </div>
               )}
             </div>
