@@ -375,7 +375,7 @@ export const inspirations: Inspiration[] = [
     id: "tiktok-palette",
     title: "TikTok",
     description:
-      "Bold black-and-white foundation with signature pink-red and cyan accents. The dual-tone accent creates an energetic, youthful feel.",
+      "Bold black-and-white foundation with signature pink-red and cyan dual accents. The two-tone brand creates an energetic, youthful feel.",
     source: "https://www.tiktok.com/brand",
     group: "Colour Palette",
     palette: {
@@ -386,8 +386,8 @@ export const inspirations: Inspiration[] = [
           { label: "Surface", value: "#F1F1F2" },
           { label: "Text", value: "#161823" },
           { label: "Text Secondary", value: "#75767B" },
-          { label: "Accent", value: "#FE2C55" },
-          { label: "Border", value: "#E3E3E4" },
+          { label: "Accent (Pink)", value: "#FE2C55" },
+          { label: "Accent (Cyan)", value: "#25F4EE" },
         ],
       },
       dark: {
@@ -397,8 +397,8 @@ export const inspirations: Inspiration[] = [
           { label: "Surface", value: "#1E1E1E" },
           { label: "Text", value: "#E8E8E8" },
           { label: "Text Secondary", value: "#8A8B91" },
-          { label: "Accent", value: "#FE2C55" },
-          { label: "Border", value: "#2C2C2C" },
+          { label: "Accent (Pink)", value: "#FE2C55" },
+          { label: "Accent (Cyan)", value: "#25F4EE" },
         ],
       },
     },
@@ -463,38 +463,6 @@ export const inspirations: Inspiration[] = [
           { label: "Text Secondary", value: "#8696A0" },
           { label: "Accent", value: "#00A884" },
           { label: "Border", value: "#222D34" },
-        ],
-      },
-    },
-  },
-  {
-    id: "x-twitter-palette",
-    title: "X (Twitter)",
-    description:
-      "Blue accent on a timeline-first layout. Dark mode offers both Dim (navy) and Lights Out (AMOLED black). Clean, information-dense UI.",
-    source: "https://about.x.com",
-    group: "Colour Palette",
-    palette: {
-      light: {
-        screenshot: "/play-with-claude/inspirations/x-twitter-light.png",
-        colors: [
-          { label: "Background", value: "#FFFFFF" },
-          { label: "Surface", value: "#F7F9F9" },
-          { label: "Text", value: "#0F1419" },
-          { label: "Text Secondary", value: "#536471" },
-          { label: "Accent", value: "#1D9BF0" },
-          { label: "Border", value: "#EFF3F4" },
-        ],
-      },
-      dark: {
-        screenshot: "/play-with-claude/inspirations/x-twitter-dark.png",
-        colors: [
-          { label: "Background", value: "#000000" },
-          { label: "Surface", value: "#16181C" },
-          { label: "Text", value: "#E7E9EA" },
-          { label: "Text Secondary", value: "#71767B" },
-          { label: "Accent", value: "#1D9BF0" },
-          { label: "Border", value: "#2F3336" },
         ],
       },
     },
