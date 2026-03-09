@@ -62,7 +62,7 @@ function VideoCardView({ card, isDark }: { card: VideoReelCard; isDark: boolean 
   return (
     <div
       className="relative rounded-[36px] overflow-hidden w-full"
-      style={{ aspectRatio: "9/14.5", border: isDark ? "none" : "1px solid rgba(0,0,0,0.05)" }}
+      style={{ aspectRatio: "9/14", border: isDark ? "none" : "1px solid rgba(0,0,0,0.05)" }}
     >
       <img
         src={card.imageUrl}
@@ -287,7 +287,7 @@ function ArticleCardView({ card, isDark }: { card: ArticleReelCard; isDark: bool
   return (
     <div
       className="w-full rounded-[36px] overflow-hidden flex flex-col"
-      style={{ background: isDark ? "#1c1c1e" : "#ffffff", aspectRatio: "9/14.5", border: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.05)"}` }}
+      style={{ background: isDark ? "#1c1c1e" : "#ffffff", aspectRatio: "9/14", border: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.05)"}` }}
     >
       <div ref={outerRef} className="flex-1 min-h-0 relative">
         {/* Hidden measurement div */}
