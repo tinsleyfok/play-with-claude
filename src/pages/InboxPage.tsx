@@ -1,5 +1,6 @@
 import { useTheme } from "../hooks/useTheme";
 import { MessageItem, type MessageData } from "../components/MessageItem";
+import { holoAvatar } from "../utils/holoAvatar";
 
 const ACTIVITIES = [
   {
@@ -29,13 +30,12 @@ const ACTIVITIES = [
 ];
 
 const MOCK_MESSAGES: MessageData[] = [
-  { id: "m1", username: "baoyue999", message: "😋", time: "Just now", avatarUrl: "https://api.dicebear.com/9.x/avataaars/svg?seed=baoyue&size=56" },
-  { id: "m2", username: "longtimenosea", message: "Now I'm super addicted to golf", time: "2h", avatarUrl: "https://api.dicebear.com/9.x/avataaars/svg?seed=longtime&size=56" },
-  { id: "m3", username: "smartyquang", message: "[Image]", time: "1w", avatarUrl: "https://api.dicebear.com/9.x/avataaars/svg?seed=smarty&size=56" },
-  { id: "m4", username: "rockingao", message: ";)", time: "1w", avatarUrl: "https://api.dicebear.com/9.x/avataaars/svg?seed=rocking&size=56" },
-  { id: "m5", username: "Junwei", message: "Sure!", time: "1w", avatarUrl: "https://api.dicebear.com/9.x/avataaars/svg?seed=junwei&size=56" },
-  { id: "m6", username: "Junwei", message: "I cannot bewlieve this is what you want to say.", time: "1w", avatarUrl: "https://api.dicebear.com/9.x/avataaars/svg?seed=junwei2&size=56" },
-  { id: "m7", username: "helloworld", message: "[Image]", time: "3 hrs ago", avatarUrl: "https://api.dicebear.com/9.x/avataaars/svg?seed=hello&size=56" },
+  { id: "m1", username: "baoyue999", message: "😋", time: "Just now", avatarUrl: holoAvatar("baoyue999") },
+  { id: "m2", username: "longtimenosea", message: "Now I'm super addicted to golf", time: "2h", avatarUrl: holoAvatar("longtimenosea") },
+  { id: "m3", username: "smartyquang", message: "[Image]", time: "1w", avatarUrl: holoAvatar("smartyquang") },
+  { id: "m4", username: "rockingao", message: ";)", time: "1w", avatarUrl: holoAvatar("rockingao") },
+  { id: "m5", username: "Junwei", message: "Sure!", time: "1w", avatarUrl: holoAvatar("Junwei") },
+  { id: "m7", username: "helloworld", message: "[Image]", time: "3 hrs ago", avatarUrl: holoAvatar("helloworld") },
 ];
 
 export function InboxPage() {

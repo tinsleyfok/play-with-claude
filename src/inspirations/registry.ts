@@ -508,16 +508,16 @@ export const inspirations: Inspiration[] = [
       "Minimal black-outline illustrations on a neutral background. Gender-neutral, warm, and readable at any size. The most widely adopted minimal avatar style in productivity apps.",
     source: "https://notion-avatar.app/en",
     group: "Avatar",
-    image: "https://notion-avatar.app/og.png",
+    image: "/TinsleyToolbox/inspirations/avatar-notion.png",
   },
   {
     id: "avatar-apple-memoji",
     title: "Apple – Memoji",
     description:
       "3D cartoon avatar that tracks facial expressions. Soft gradients, rounded forms, and vibrant skin tones. Premium feel with high detail that works as both static and animated.",
-    source: "https://support.apple.com/en-us/111893",
+    source: "https://tapback.co/memoji",
     group: "Avatar",
-    image: "https://help.apple.com/assets/679FA8A6EE0FFB1C7D0D8C72/679FA8C2EE0FFB1C7D0D8CDE/en_US/75580c31ae8bb1f5cac014783b87845b.png",
+    image: "/TinsleyToolbox/inspirations/avatar-memoji.png",
   },
   {
     id: "avatar-dicebear",
@@ -526,7 +526,7 @@ export const inspirations: Inspiration[] = [
       "Open-source avatar library generating illustrated characters from a seed string. Consistent style across all users with customizable features. Used widely in dev tools and social platforms.",
     source: "https://www.dicebear.com/styles/avataaars/",
     group: "Avatar",
-    image: "https://api.dicebear.com/9.x/avataaars/svg?seed=tinsley&size=256",
+    image: "/TinsleyToolbox/inspirations/avatar-dicebear.png",
   },
   {
     id: "avatar-xiaohongshu",
@@ -535,7 +535,7 @@ export const inspirations: Inspiration[] = [
       "Rounded, clay-like 3D avatar with pastel tones and subtle shadows. Cute, approachable aesthetic that matches the platform's lifestyle content. Gender-neutral with gentle proportions.",
     source: "https://www.xiaohongshu.com",
     group: "Avatar",
-    image: "https://sns-avatar-qc.xhscdn.com/avatar/1040g2jo30s53dammhk005p1dvkq20bncgbv12fo",
+    image: "/TinsleyToolbox/inspirations/avatar-xiaohongshu.png",
   },
   {
     id: "avatar-figma",
@@ -544,34 +544,7 @@ export const inspirations: Inspiration[] = [
       "Simple colored circle with a white initial letter. Bold, flat colors auto-assigned per user create visual distinction in multiplayer. Ultra-minimal and scales perfectly to any size.",
     source: "https://www.figma.com",
     group: "Avatar",
-    image: "https://s3-alpha.figma.com/static/user_j.png",
-  },
-  {
-    id: "avatar-proposal-minimal-geo",
-    title: "Proposal A – Minimal Line Face",
-    description:
-      "Notion-inspired line-art face on warm beige circle. Clean black outlines with dot eyes and curved smile. Approachable and gender-neutral, scales well from 56px down to 16px.",
-    source: "Generated for Tinsley's Toolbox",
-    group: "Avatar",
-    image: "/TinsleyToolbox/inspirations/avatar-proposal-1-minimal-geo.png",
-  },
-  {
-    id: "avatar-proposal-silhouette",
-    title: "Proposal B – Gradient Silhouette Cameo",
-    description:
-      "Soft cream-to-terracotta gradient circle with a minimal profile silhouette. Elegant and premium, reminiscent of classic cameo jewelry. Works beautifully in both light and dark modes.",
-    source: "Generated for Tinsley's Toolbox",
-    group: "Avatar",
-    image: "/TinsleyToolbox/inspirations/avatar-proposal-2-silhouette.png",
-  },
-  {
-    id: "avatar-proposal-initial",
-    title: "Proposal C – Serif Initial Tiles",
-    description:
-      "Serif letter centered in a soft rounded square. Muted earth-tone palette (dusty rose, sage, clay) creates variety across users. Typographic and editorial — matches Playfair Display used in the app.",
-    source: "Generated for Tinsley's Toolbox",
-    group: "Avatar",
-    image: "/TinsleyToolbox/inspirations/avatar-proposal-3-initial.png",
+    image: "/TinsleyToolbox/inspirations/avatar-figma.png",
   },
 
   {

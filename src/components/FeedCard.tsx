@@ -26,12 +26,12 @@ export function FeedCard({ card, bordered }: { card: FeedCardData; bordered?: bo
   const imageAspect = size === "portrait" ? "3/4" : size === "square" ? "1/1" : "4/3";
 
   const cardBg = bordered
-    ? (isDark ? "#181818" : "#fafafa")
-    : (isDark ? "#1c1c1e" : "#f5f5f5");
+    ? (isDark ? "#181818" : "#ffffff")
+    : (isDark ? "#1c1c1e" : "#ffffff");
 
   const borderStyle = bordered
-    ? `1px solid ${isDark ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.05)"}`
-    : isDark ? "none" : "1px solid rgba(0,0,0,0.05)";
+    ? `1px solid ${isDark ? "rgba(255,255,255,0.05)" : "transparent"}`
+    : isDark ? "none" : "none";
 
   if (card.variant === "draft") {
     return (

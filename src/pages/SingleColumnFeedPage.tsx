@@ -2,8 +2,8 @@ import { useEffect, useRef } from "react";
 import { ReelCard, type ReelCardData } from "../components/ReelCard";
 
 const base = import.meta.env.BASE_URL;
-const avatar = (seed: string) =>
-  `https://api.dicebear.com/9.x/avataaars/svg?seed=${seed}&size=56`;
+import { holoAvatar } from "../utils/holoAvatar";
+const avatar = (seed: string) => holoAvatar(seed);
 
 const MOCK_CARDS: ReelCardData[] = [
   {
@@ -22,7 +22,7 @@ const MOCK_CARDS: ReelCardData[] = [
     id: "r2",
     variant: "image",
     username: "tinsleyfok",
-    avatarUrl: avatar("tinsley"),
+    avatarUrl: avatar("tinsleyfok"),
     imageUrl: `${base}images/feed-food.jpg`,
     imageAspect: "4:3",
     likes: "3.9K",

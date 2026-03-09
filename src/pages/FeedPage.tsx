@@ -2,7 +2,8 @@ import { FeedTopNav } from "../components/FeedTopNav";
 import { FeedCard, type FeedCardData } from "../components/FeedCard";
 
 const img = (id: number, w = 400, h = 500) => `https://picsum.photos/id/${id}/${w}/${h}`;
-const avatar = (seed: string) => `https://api.dicebear.com/9.x/avataaars/svg?seed=${seed}&size=56`;
+import { holoAvatar } from "../utils/holoAvatar";
+const avatar = (seed: string) => holoAvatar(seed);
 
 const MOCK_LEFT: FeedCardData[] = [
   {
@@ -23,7 +24,7 @@ const MOCK_LEFT: FeedCardData[] = [
     username: "tinsleyfok",
     likes: "3.9K",
     imageUrl: img(292, 400, 300),
-    avatarUrl: avatar("tinsley"),
+    avatarUrl: avatar("tinsleyfok"),
   },
   {
     id: "l3",

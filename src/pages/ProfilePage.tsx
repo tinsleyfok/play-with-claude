@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useTheme } from "../hooks/useTheme";
 import { ProfileHeader } from "../components/ProfileHeader";
 import { FeedCard, type FeedCardData } from "../components/FeedCard";
+import { holoAvatar } from "../utils/holoAvatar";
 
 const TABS = ["My Card", "Collections", "Likes"] as const;
 
@@ -133,7 +134,7 @@ const LIKES_LEFT: FeedCardData[] = [
     username: "matchalover",
     likes: "24.5K",
     imageUrl: "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?w=400&h=530&fit=crop",
-    avatarUrl: "https://api.dicebear.com/9.x/avataaars/svg?seed=matcha&size=56",
+    avatarUrl: holoAvatar("matcha"),
   },
   {
     id: "lk3",
@@ -141,7 +142,7 @@ const LIKES_LEFT: FeedCardData[] = [
     title: "Why every designer should learn to code in 2025",
     username: "designdev",
     likes: "8.2K",
-    avatarUrl: "https://api.dicebear.com/9.x/avataaars/svg?seed=designdev&size=56",
+    avatarUrl: holoAvatar("designdev"),
     body: "The gap between design and development is shrinking. Here's why picking up React or SwiftUI will make you 10x more valuable...",
   },
 ];
@@ -154,7 +155,7 @@ const LIKES_RIGHT: FeedCardData[] = [
     title: "What's one design trend you think will die in 2025?",
     username: "ux.thoughts",
     likes: "3.4K",
-    avatarUrl: "https://api.dicebear.com/9.x/avataaars/svg?seed=uxthoughts&size=56",
+    avatarUrl: holoAvatar("uxthoughts"),
   },
   {
     id: "lk4",
@@ -164,7 +165,7 @@ const LIKES_RIGHT: FeedCardData[] = [
     username: "shuttercraft",
     likes: "11.3K",
     imageUrl: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=530&fit=crop",
-    avatarUrl: "https://api.dicebear.com/9.x/avataaars/svg?seed=shutter&size=56",
+    avatarUrl: holoAvatar("shutter"),
   },
 ];
 

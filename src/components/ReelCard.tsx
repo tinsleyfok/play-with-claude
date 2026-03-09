@@ -62,7 +62,7 @@ function VideoCardView({ card, isDark }: { card: VideoReelCard; isDark: boolean 
   return (
     <div
       className="relative rounded-[36px] overflow-hidden w-full"
-      style={{ aspectRatio: "9/14", border: isDark ? "none" : "1px solid rgba(0,0,0,0.05)" }}
+      style={{ aspectRatio: "9/14" }}
     >
       <img
         src={card.imageUrl}
@@ -84,13 +84,7 @@ function VideoCardView({ card, isDark }: { card: VideoReelCard; isDark: boolean 
         <ActionIcon><IconMore size={23} color="#fff" /></ActionIcon>
       </div>
       <div className="absolute bottom-0 left-0 right-14 p-4 pb-5 flex flex-col gap-2.5">
-        <div className="flex items-center gap-2">
-          <Avatar url={card.avatarUrl} size={20} />
-          <span className="font-rethink text-[17px] font-bold text-white leading-none">
-            {card.username}
-          </span>
-          <FollowButton light />
-        </div>
+        <UserRow avatarUrl={card.avatarUrl} username={card.username} light />
         {card.description && (
           <p className="font-rethink text-[14px] text-white/90 m-0 leading-snug line-clamp-2">
             {card.description}
@@ -112,9 +106,9 @@ function ImageCardView({ card, isDark }: { card: ImageReelCard; isDark: boolean 
   return (
     <div
       className="w-full rounded-[36px] overflow-hidden flex flex-col"
-      style={{ background: isDark ? "#1c1c1e" : "#ffffff", border: isDark ? "none" : "1px solid rgba(0,0,0,0.05)" }}
+      style={{ background: isDark ? "#1c1c1e" : "#ffffff" }}
     >
-      <div className="overflow-hidden flex-shrink-0" style={{ borderBottom: isDark ? "none" : "1px solid rgba(0,0,0,0.05)" }}>
+      <div className="overflow-hidden flex-shrink-0">
         <img
           src={card.imageUrl}
           alt=""
@@ -123,13 +117,7 @@ function ImageCardView({ card, isDark }: { card: ImageReelCard; isDark: boolean 
         />
       </div>
       <div className="flex-1 min-h-0 overflow-hidden px-5 pt-3 flex flex-col gap-1.5">
-        <div className="flex items-center gap-2">
-          <Avatar url={card.avatarUrl} size={32} isDark={isDark} />
-          <span className="font-rethink text-[16px] font-medium" style={{ color: textColor }}>
-            {card.username}
-          </span>
-          <FollowButton isDark={isDark} />
-        </div>
+        <UserRow avatarUrl={card.avatarUrl} username={card.username} isDark={isDark} />
         {card.description ? (
           <p className="font-rethink text-[15px] m-0 leading-snug line-clamp-3" style={{ color: textColor }}>
             {card.description}
@@ -159,7 +147,7 @@ function DiscussionCardView({ card, isDark }: { card: DiscussionReelCard; isDark
   return (
     <div
       className="w-full rounded-[36px] overflow-hidden flex flex-col"
-      style={{ border: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.05)"}` }}
+      style={{ border: isDark ? "1px solid rgba(255,255,255,0.08)" : "none" }}
     >
       <div
         className="relative flex items-center justify-center flex-shrink-0"
@@ -182,13 +170,7 @@ function DiscussionCardView({ card, isDark }: { card: DiscussionReelCard; isDark
         style={{ background: isDark ? "#1c1c1e" : "#ffffff" }}
       >
         <div className="flex-1 min-h-0 overflow-hidden px-5 pt-3 flex flex-col gap-1.5">
-          <div className="flex items-center gap-2">
-            <Avatar url={card.avatarUrl} size={32} isDark={isDark} />
-            <span className="font-rethink text-[16px] font-medium" style={{ color: textColor }}>
-              {card.username}
-            </span>
-            <FollowButton isDark={isDark} />
-          </div>
+          <UserRow avatarUrl={card.avatarUrl} username={card.username} isDark={isDark} />
         </div>
         <div className="px-5 pb-4 pt-1 flex-shrink-0">
           <ActionBar card={card} isDark={isDark} />
@@ -269,13 +251,7 @@ function ArticleCardView({ card, isDark }: { card: ArticleReelCard; isDark: bool
       >
         {card.title}
       </h2>
-      <div className="flex items-center gap-2">
-        <Avatar url={card.avatarUrl} size={32} isDark={isDark} />
-        <span className="font-rethink text-[16px] font-medium" style={{ color: textColor }}>
-          {card.username}
-        </span>
-        <FollowButton isDark={isDark} />
-      </div>
+      <UserRow avatarUrl={card.avatarUrl} username={card.username} isDark={isDark} />
       {(card.readTime || card.timestamp) && (
         <p className="font-rethink text-[15px] m-0" style={{ color: subtleColor }}>
           {[card.readTime, card.timestamp].filter(Boolean).join(" \u00b7 ")}
@@ -287,7 +263,7 @@ function ArticleCardView({ card, isDark }: { card: ArticleReelCard; isDark: bool
   return (
     <div
       className="w-full rounded-[36px] overflow-hidden flex flex-col"
-      style={{ background: isDark ? "#1c1c1e" : "#ffffff", aspectRatio: "9/14", border: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.05)"}` }}
+      style={{ background: isDark ? "#1c1c1e" : "#ffffff", aspectRatio: "9/14", border: isDark ? "1px solid rgba(255,255,255,0.08)" : "none" }}
     >
       <div ref={outerRef} className="flex-1 min-h-0 relative">
         {/* Hidden measurement div */}
@@ -398,13 +374,20 @@ function ActionIcon({ count, children }: { count?: string; children: React.React
   );
 }
 
-function FollowButton({ isDark, light }: { isDark?: boolean; light?: boolean }) {
+function UserRow({ avatarUrl, username, isDark, light }: { avatarUrl?: string; username: string; isDark?: boolean; light?: boolean }) {
   const bg = light ? "rgba(255,255,255,0.2)" : isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.06)";
-  const color = light ? "#ffffff" : isDark ? "#ffffff" : "#000000";
+  const textColor = light ? "#ffffff" : isDark ? "#ffffff" : "#000000";
+
   return (
-    <button className="w-5 h-5 rounded-full flex items-center justify-center border-none cursor-pointer ml-0.5 flex-shrink-0" style={{ background: bg }}>
-      <IconPlus size={10} color={color} />
-    </button>
+    <div className="flex items-center gap-2">
+      <Avatar url={avatarUrl} size={32} isDark={isDark} />
+      <span className="font-rethink text-[16px] font-medium leading-none" style={{ color: textColor }}>
+        {username}
+      </span>
+      <button className="w-5 h-5 rounded-full flex items-center justify-center border-none cursor-pointer ml-0.5 flex-shrink-0" style={{ background: bg }}>
+        <IconPlus size={10} color={textColor} />
+      </button>
+    </div>
   );
 }
 
