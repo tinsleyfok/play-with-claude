@@ -138,9 +138,15 @@ function ImageCardView({ card, isDark }: { card: ImageReelCard; isDark: boolean 
 
 /* ─── Discussion Card: 1:1 or 4:3 based on title length ─── */
 
+const QUOTE_COLORS_LIGHT = ["#CDA034", "#A63333", "#8DB82E", "#4A9EBF", "#9B2D9B", "#B87333"];
+const QUOTE_COLORS_DARK = ["#D4AD4E", "#C44A4A", "#A0CC42", "#5BB8D8", "#B44AB4", "#D08A44"];
+
 function DiscussionCardView({ card, isDark }: { card: DiscussionReelCard; isDark: boolean }) {
   const quoteAspect = card.title.length > 80 ? "3/4" : "1/1";
-  const quoteFill = isDark ? "rgba(255,255,255,0.18)" : "rgba(0,0,0,0.15)";
+  const hash = card.id.split("").reduce((a: number, c: string) => a + c.charCodeAt(0), 0);
+  const quoteFill = isDark
+    ? QUOTE_COLORS_DARK[hash % QUOTE_COLORS_DARK.length]
+    : QUOTE_COLORS_LIGHT[hash % QUOTE_COLORS_LIGHT.length];
   const textColor = isDark ? "#ffffff" : "#000000";
   const subtleColor = isDark ? "rgba(255,255,255,0.48)" : "rgba(0,0,0,0.48)";
 

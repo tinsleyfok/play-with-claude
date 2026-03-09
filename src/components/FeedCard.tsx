@@ -126,8 +126,8 @@ function ArticleContent({ card, isDark, size }: { card: FeedCardData; isDark: bo
   );
 }
 
-const QUOTE_COLORS_LIGHT = ["#e05a33", "#2a9d8f", "#7b61ff", "#e07bab", "#d19900", "#3a86ff"];
-const QUOTE_COLORS_DARK = ["#e8734f", "#4ecdc4", "#9b87f5", "#f0a0c4", "#e6b422", "#6eaaff"];
+const QUOTE_COLORS_LIGHT = ["#CDA034", "#A63333", "#8DB82E", "#4A9EBF", "#9B2D9B", "#B87333"];
+const QUOTE_COLORS_DARK = ["#D4AD4E", "#C44A4A", "#A0CC42", "#5BB8D8", "#B44AB4", "#D08A44"];
 
 function DiscussionContent({ card, isDark, size }: { card: FeedCardData; isDark: boolean; size: CardSize }) {
   const aspect = size === "portrait" ? "3/4" : size === "square" ? "1/1" : "4/3";
