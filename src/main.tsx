@@ -11,6 +11,8 @@ import { ProfilePage } from "./pages/ProfilePage";
 import { AnimationPage } from "./pages/AnimationPage";
 import { OnboardingPage } from "./pages/OnboardingPage";
 import { InspirationPage } from "./pages/InspirationPage";
+import { AnimationInspirationPage } from "./pages/AnimationInspirationPage";
+import { ThemeInspirationPage } from "./pages/ThemeInspirationPage";
 import { ThemeProvider } from "./hooks/useTheme";
 import "./index.css";
 
@@ -30,6 +32,8 @@ createRoot(document.getElementById("root")!).render(
           <Route path="animation" element={<AnimationPage />} />
           <Route path="animation/onboarding" element={<OnboardingPage />} />
           <Route path="inspiration" element={<InspirationPage />} />
+          <Route path="inspiration/animations" element={<AnimationInspirationPage />} />
+          <Route path="inspiration/themes" element={<ThemeInspirationPage />} />
         </Route>
       </Routes>
       </ThemeProvider>

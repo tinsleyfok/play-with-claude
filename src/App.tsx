@@ -7,6 +7,8 @@ const PAGE_TITLES: Record<string, string> = {
   "/": "Folders",
   "/animation": "Animation",
   "/inspiration": "Inspiration",
+  "/inspiration/animations": "Animations",
+  "/inspiration/themes": "Themes",
 };
 
 export function App() {

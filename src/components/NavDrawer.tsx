@@ -23,7 +23,15 @@ const NAV_ITEMS: NavItem[] = [
     isFolder: true,
     children: [{ to: "/animation/onboarding", label: "Onboarding" }],
   },
-  { to: "/inspiration", label: "Inspiration", isFolder: true },
+  {
+    to: "/inspiration",
+    label: "Inspiration",
+    isFolder: true,
+    children: [
+      { to: "/inspiration/animations", label: "Animations" },
+      { to: "/inspiration/themes", label: "Themes" },
+    ],
+  },
 ];
 
 export function NavDrawer() {
