@@ -237,12 +237,12 @@ export function ProfilePage() {
         <div className="grid grid-cols-2 gap-3 px-2 py-3 relative z-10">
           <div className="flex flex-col gap-3 min-w-0">
             {left.map((card) => (
-              <FeedCard key={card.id} card={card} bordered />
+              <FeedCard key={card.id} card={card} />
             ))}
           </div>
           <div className="flex flex-col gap-3 min-w-0">
             {right.map((card) => (
-              <FeedCard key={card.id} card={card} bordered />
+              <FeedCard key={card.id} card={card} />
             ))}
           </div>
         </div>

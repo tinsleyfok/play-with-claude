@@ -18,20 +18,17 @@ export interface FeedCardData {
   views?: string;
 }
 
-export function FeedCard({ card, bordered }: { card: FeedCardData; bordered?: boolean }) {
+export function FeedCard({ card }: { card: FeedCardData }) {
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
   const size = card.size || "portrait";
-  const imageAspect = size === "portrait" ? "3/4" : size === "square" ? "1/1" : "4/3";
+  const imageHeight = size === "portrait" ? 252 : size === "square" ? 187 : 140;
 
-  const cardBg = bordered
-    ? (isDark ? "#181818" : "#ffffff")
-    : (isDark ? "#1c1c1e" : "#ffffff");
+  const cardBg = isDark ? "#1c1c1e" : "#f5f5f5";
 
-  const borderStyle = bordered
-    ? `1px solid ${isDark ? "rgba(255,255,255,0.05)" : "transparent"}`
-    : isDark ? "none" : "none";
+  // Grey stroke for card thumbnails in two-column feed - 5% of #000
+  const borderStyle = `1px solid rgba(0, 0, 0, 0.05)`;
 
   if (card.variant === "draft") {
     return (
