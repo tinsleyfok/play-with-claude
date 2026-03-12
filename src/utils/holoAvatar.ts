@@ -8,7 +8,7 @@ function hashSeed(seed: string): number {
 
 const STYLES = ["adventurer", "fun-emoji", "lorelei", "notionists"];
 
-export function holoAvatar(username: string, size = 56): string {
+export function holoAvatar(username: string, _size = 56): string {
   const h = hashSeed(username);
   const bucket = h % 20;
 

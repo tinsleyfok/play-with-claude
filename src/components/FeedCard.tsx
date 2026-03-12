@@ -68,7 +68,7 @@ export function FeedCard({ card }: { card: FeedCardData }) {
   );
 }
 
-function ImageContent({ card, isDark, aspect }: { card: FeedCardData; isDark: boolean; aspect: string }) {
+function ImageContent({ card, aspect }: { card: FeedCardData; isDark: boolean; aspect: string }) {
   return (
     <div className="relative" style={{ aspectRatio: aspect, background: card.imageBg || "#2a2a2a" }}>
       {card.imageUrl && (

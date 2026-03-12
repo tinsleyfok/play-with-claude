@@ -58,7 +58,7 @@ export function ReelCard({ card }: { card: ReelCardData }) {
 
 /* ─── Video Card: fixed 9:16 ─── */
 
-function VideoCardView({ card, isDark }: { card: VideoReelCard; isDark: boolean }) {
+function VideoCardView({ card }: { card: VideoReelCard; isDark: boolean }) {
   return (
     <div
       className="relative rounded-[36px] overflow-hidden w-full"
@@ -148,7 +148,6 @@ function DiscussionCardView({ card, isDark }: { card: DiscussionReelCard; isDark
     ? QUOTE_COLORS_DARK[hash % QUOTE_COLORS_DARK.length]
     : QUOTE_COLORS_LIGHT[hash % QUOTE_COLORS_LIGHT.length];
   const textColor = isDark ? "#ffffff" : "#000000";
-  const subtleColor = isDark ? "rgba(255,255,255,0.48)" : "rgba(0,0,0,0.48)";
 
   return (
     <div
