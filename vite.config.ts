@@ -2,14 +2,15 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
-// GitHub Pages project URL: /TinsleyToolbox/ — use "/" locally so dev stays at /
+// GitHub Pages: https://tinsleyfok.github.io/TinsleyToolbox/
+// Use command === "build" (not NODE_ENV) — CI often has no NODE_ENV when config loads.
 const repoBase = "/TinsleyToolbox/";
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [react(), tailwindcss()],
-  base: process.env.NODE_ENV === "production" ? repoBase : "/",
+  base: command === "build" ? repoBase : "/",
   server: {
     open: true,
     port: 5173,
   },
-});
+}));
