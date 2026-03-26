@@ -11,6 +11,8 @@ import { ProfilePage } from "./pages/ProfilePage";
 import { AnimationPage } from "./pages/AnimationPage";
 import { OnboardingPage } from "./pages/OnboardingPage";
 import { FlipCardPage } from "./pages/FlipCardPage";
+import { LikePage } from "./pages/LikePage";
+import { OpeningPage } from "./pages/OpeningPage";
 import { InspirationPage } from "./pages/InspirationPage";
 import { AnimationInspirationPage } from "./pages/AnimationInspirationPage";
 import { ThemeInspirationPage } from "./pages/ThemeInspirationPage";
@@ -34,11 +36,11 @@ createRoot(document.getElementById("root")!).render(
           <Route path="animation" element={<AnimationPage />} />
           <Route path="animation/onboarding" element={<OnboardingPage />} />
           <Route path="animation/flip-card" element={<FlipCardPage />} />
+          <Route path="animation/like" element={<LikePage />} />
+          <Route path="animation/opening" element={<OpeningPage />} />
           <Route path="inspiration" element={<InspirationPage />} />
           <Route path="inspiration/animations" element={<AnimationInspirationPage />} />
           <Route path="inspiration/themes" element={<ThemeInspirationPage />} />
-          <Route path="inspiration/avatars" element={<AvatarInspirationPage />} />
-          <Route path="inspiration/avatars" element={<AvatarInspirationPage />} />
           <Route path="inspiration/avatars" element={<AvatarInspirationPage />} />
         </Route>
       </Routes>

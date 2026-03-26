@@ -23,6 +23,8 @@ function MediaPreview({ src, replayKey }: { src: string; replayKey: number }) {
         autoPlay
         muted
         playsInline
+        loop
+        preload="metadata"
         className="w-full h-full object-contain"
       />
     );

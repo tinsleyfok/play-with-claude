@@ -4,9 +4,10 @@ import { useTheme } from "../hooks/useTheme";
 interface FileItemProps {
   to: string;
   title: string;
+  emptyPreview?: boolean;
 }
 
-export function FileItem({ to, title }: FileItemProps) {
+export function FileItem({ to, title, emptyPreview }: FileItemProps) {
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
@@ -17,7 +18,9 @@ export function FileItem({ to, title }: FileItemProps) {
         isDark ? "border-[rgba(255,255,255,0.07)]" : "border-[rgba(55,53,47,0.06)]"
       }`}
     >
-      <div className="file-icon w-[120px] h-[160px] mx-auto shrink-0" />
+      <div
+        className={`file-icon w-[120px] h-[160px] mx-auto shrink-0${emptyPreview ? " file-icon--empty" : ""}`}
+      />
       <div className={`flex-1 text-left text-[17px] font-medium w-auto md:flex-initial md:text-sm md:font-semibold md:text-center md:w-40 md:leading-[1.8] ${
         isDark ? "text-[#ebebeb]" : "text-[#37352f]"
       }`}>

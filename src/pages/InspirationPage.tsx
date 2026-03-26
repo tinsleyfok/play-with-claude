@@ -6,7 +6,6 @@ export function InspirationPage() {
       <FileItem to="/inspiration/animations" title="Animations" />
       <FileItem to="/inspiration/themes" title="Themes" />
       <FileItem to="/inspiration/avatars" title="Avatars" />
-      <FileItem to="/inspiration/avatars" title="Avatars" />
     </div>
   );
 }

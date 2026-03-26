@@ -1,5 +1,7 @@
 node_modules
 dist
+*.tsbuildinfo
+.tmp_verify_like.mjs
 .DS_Store
 .claude/
 .cursor/rules/

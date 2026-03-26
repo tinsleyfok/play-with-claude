@@ -24,6 +24,8 @@ const NAV_ITEMS: NavItem[] = [
     children: [
       { to: "/animation/onboarding", label: "Onboarding" },
       { to: "/animation/flip-card", label: "Flip card" },
+      { to: "/animation/like", label: "Like" },
+      { to: "/animation/opening", label: "Opening" },
     ],
   },
   {
@@ -33,6 +35,7 @@ const NAV_ITEMS: NavItem[] = [
     children: [
       { to: "/inspiration/animations", label: "Animations" },
       { to: "/inspiration/themes", label: "Themes" },
+      { to: "/inspiration/avatars", label: "Avatars" },
     ],
   },
 ];
@@ -75,7 +78,7 @@ export function NavDrawer() {
 
       {/* Drawer */}
       <nav className={`nav-drawer ${open ? "open" : ""} ${isDark ? "!bg-[#202020]" : ""}`}>
-        <div className="flex-1 flex flex-col gap-0.5">
+        <div className="flex-1 flex flex-col gap-0.5 min-h-0 overflow-y-auto overflow-x-hidden pr-0.5 -mr-0.5">
         {NAV_ITEMS.map((item, i) => {
           const isActive = pathname === item.to || item.children?.some(c => pathname === c.to);
           const textColor = isDark ? "#ebebeb" : "#37352f";

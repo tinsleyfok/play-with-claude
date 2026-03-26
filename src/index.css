@@ -6,6 +6,30 @@
   --font-charter: "Charter", "Playfair Display", Georgia, serif;
 }
 
+/* Like pill — tap feedback (Like page) */
+@keyframes like-heart-pop {
+  0% {
+    transform: scale(0.65);
+    opacity: 0.85;
+  }
+  40% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  70% {
+    transform: scale(0.94);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.like-heart-pop {
+  animation: like-heart-pop 0.55s cubic-bezier(0.22, 1.35, 0.36, 1) both;
+  transform-origin: center;
+}
+
 /* ── Folder icon shape (pseudo-elements need custom CSS) ── */
 .folder-icon {
   position: relative;
@@ -83,6 +107,11 @@
   background: rgba(55, 53, 47, 0.1);
   border-radius: 4px;
   box-shadow: 0 20px 0 rgba(55, 53, 47, 0.1);
+}
+
+.file-icon--empty::before,
+.file-icon--empty::after {
+  display: none;
 }
 
 @media (max-width: 768px) {
@@ -325,3 +354,27 @@
 .reel-card > * {
   max-height: 161.11cqi;
 }
+
+/* ── Opening page: Gist wordmark ── */
+@keyframes opening-gist-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.opening-gist-fade {
+  opacity: 0;
+  animation: opening-gist-fade-in 2.2s ease-out forwards;
+  will-change: opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .opening-gist-fade {
+    opacity: 1;
+    animation: none;
+  }
+}
+

@@ -1,6 +1,6 @@
 import type { Inspiration } from "./types";
 
-export const inspirations: Inspiration[] = [
+const rawInspirations: Inspiration[] = [
   {
     id: "art-of-fauna-puzzle-drag-flip",
     title: "Art of Fauna – Puzzle Drag & Flip",
@@ -580,3 +580,38 @@ export const inspirations: Inspiration[] = [
     },
   },
 ];
+
+const GITHUB_PAGES_PREFIX = "/TinsleyToolbox";
+
+function resolveAssetPath(path?: string): string | undefined {
+  if (!path) return path;
+  if (/^https?:\/\//.test(path)) return path;
+
+  const baseUrl = import.meta.env.DEV
+    ? ""
+    : (import.meta.env.BASE_URL || "/").replace(/\/$/, "");
+  const normalized = path.startsWith(GITHUB_PAGES_PREFIX)
+    ? path.slice(GITHUB_PAGES_PREFIX.length)
+    : path;
+
+  return `${baseUrl}${normalized.startsWith("/") ? normalized : `/${normalized}`}`;
+}
+
+export const inspirations: Inspiration[] = rawInspirations.map((item) => ({
+  ...item,
+  media: resolveAssetPath(item.media),
+  image: resolveAssetPath(item.image),
+  palette: item.palette
+    ? {
+        light: {
+          ...item.palette.light,
+          screenshot: resolveAssetPath(item.palette.light.screenshot) || "",
+        },
+        dark: {
+          ...item.palette.dark,
+          screenshot: resolveAssetPath(item.palette.dark.screenshot) || "",
+        },
+      }
+    : undefined,
+}));
+
