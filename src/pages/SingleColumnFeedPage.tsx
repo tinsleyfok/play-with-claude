@@ -1,17 +1,16 @@
 import { useEffect, useRef } from "react";
 import { ReelCard, type ReelCardData } from "../components/ReelCard";
-import { holoAvatar } from "../utils/holoAvatar";
-import { publicUrl, tinsleyProfilePhoto } from "../utils/publicAsset";
+import { publicUrl } from "../utils/publicAsset";
+import { feedProfileAvatar } from "../utils/profileAvatars";
 
 const feedImg = (file: string) => publicUrl(`images/${file}`);
-const avatar = (seed: string) => holoAvatar(seed);
 
 const MOCK_CARDS: ReelCardData[] = [
   {
     id: "r1",
     variant: "video",
     username: "adrianvvlog",
-    avatarUrl: avatar("adrian"),
+    avatarUrl: feedProfileAvatar("r1", "adrianvvlog"),
     imageUrl: feedImg("feed-hvac.jpg"),
     likes: "9.9K",
     comments: "3.4K",
@@ -23,7 +22,7 @@ const MOCK_CARDS: ReelCardData[] = [
     id: "r2",
     variant: "image",
     username: "tinsleyfok",
-    avatarUrl: tinsleyProfilePhoto,
+    avatarUrl: feedProfileAvatar("r2", "tinsleyfok"),
     imageUrl: feedImg("feed-food.jpg"),
     imageAspect: "4:3",
     likes: "3.9K",
@@ -35,7 +34,7 @@ const MOCK_CARDS: ReelCardData[] = [
     id: "r3",
     variant: "image",
     username: "alcov.co",
-    avatarUrl: avatar("alcov"),
+    avatarUrl: feedProfileAvatar("r3", "alcov.co"),
     imageUrl: feedImg("feed-booblight.jpg"),
     imageAspect: "1:1",
     likes: "1.2k",
@@ -48,7 +47,7 @@ const MOCK_CARDS: ReelCardData[] = [
     id: "r4",
     variant: "discussion",
     username: "rockingao",
-    avatarUrl: avatar("rocking"),
+    avatarUrl: feedProfileAvatar("r4", "rockingao"),
     title: "Which profession is going to get wiped out in the next 5\u201310 years?",
     likes: "2.9K",
     comments: "346",
@@ -60,7 +59,7 @@ const MOCK_CARDS: ReelCardData[] = [
     id: "r5",
     variant: "article",
     username: "Significant_Soup2558",
-    avatarUrl: avatar("soup"),
+    avatarUrl: feedProfileAvatar("r5", "Significant_Soup2558"),
     title: "Former HR Here: Subtle Signs Your Company Is Preparing for Layoffs",
     body: "I\u2019ve been through 3 rounds of layoffs (twice in HR, once when I was also laid off), and there\u2019s a pattern that emerges before the axe falls.\n\nLayoffs rarely happen overnight; they\u2019re usually the result of months of decisions and signals. Looking back, the signs were often there: hiring freezes, sudden budget scrutiny, leadership becoming vague about roadmap priorities.",
     readTime: "4 min read",
@@ -73,7 +72,7 @@ const MOCK_CARDS: ReelCardData[] = [
     id: "r6",
     variant: "video",
     username: "baoyue999",
-    avatarUrl: avatar("baoyue"),
+    avatarUrl: feedProfileAvatar("r6", "baoyue999"),
     imageUrl: feedImg("living-room.png"),
     likes: "12.9K",
     comments: "1.1K",
@@ -84,7 +83,7 @@ const MOCK_CARDS: ReelCardData[] = [
     id: "r7",
     variant: "image",
     username: "C~A~T~A~R~I~N",
-    avatarUrl: avatar("catarin"),
+    avatarUrl: feedProfileAvatar("r7", "C~A~T~A~R~I~N"),
     imageUrl: feedImg("feed-cat.jpg"),
     imageAspect: "1:1",
     likes: "110",
@@ -96,7 +95,7 @@ const MOCK_CARDS: ReelCardData[] = [
     id: "r8",
     variant: "video",
     username: "baoyue999",
-    avatarUrl: avatar("baoyue"),
+    avatarUrl: feedProfileAvatar("r8", "baoyue999"),
     imageUrl: feedImg("feed-living.jpg"),
     likes: "4.2K",
     comments: "156",
@@ -108,7 +107,7 @@ const MOCK_CARDS: ReelCardData[] = [
     id: "r9",
     variant: "article",
     username: "nyc.reality",
-    avatarUrl: avatar("nyc"),
+    avatarUrl: feedProfileAvatar("r9", "nyc.reality"),
     title: "The Real Cost of Living in NYC as a 25-Year-Old",
     body: "Everyone talks about the high rent but nobody mentions the $18 salads, $7 coffees, and the fact that you\u2019ll spend $150/month just on laundry.\n\nHere\u2019s my actual monthly breakdown after 2 years in Manhattan.",
     readTime: "6 min read",

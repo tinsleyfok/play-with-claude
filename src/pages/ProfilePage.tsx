@@ -180,9 +180,6 @@ const TAB_DATA: Record<string, { left: FeedCardData[]; right: FeedCardData[] }> 
   Likes: { left: LIKES_LEFT, right: LIKES_RIGHT },
 };
 
-/** Illustrated avatar for MVP profile only (not the V1 photo). */
-const MVP_PROFILE_AVATAR = holoAvatar("gist-mvp", 256);
-
 export function ProfilePage() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -250,7 +247,7 @@ export function ProfilePage() {
         )}
       </div>
 
-      <ProfileHeader avatarSrc={isMvpProfile ? MVP_PROFILE_AVATAR : undefined} />
+      <ProfileHeader avatarSrc={tinsleyProfilePhoto} />
 
       <div
         className="rounded-t-[36px] relative"

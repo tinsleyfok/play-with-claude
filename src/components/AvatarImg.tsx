@@ -1,20 +1,27 @@
 import { useState, type CSSProperties } from "react";
+import { avatarBgFromSeed } from "../utils/avatarBgPalette";
 
 type Props = {
   src: string;
   alt?: string;
   className?: string;
   style?: CSSProperties;
+  /** Pick background from palette; defaults to hashing `src`. Pass username when `src` is shared. */
+  bgSeed?: string;
+  /** Set false to skip palette fill (rare). */
+  paletteBg?: boolean;
 };
 
-/** Avatar `<img>` with a gradient fallback if the URL fails (network, block, expiry). */
-export function AvatarImg({ src, alt = "", className = "", style }: Props) {
+/** Avatar `<img>` with a pastel background from `AVATAR_BG_PALETTE` + gradient fallback if load fails. */
+export function AvatarImg({ src, alt = "", className = "", style, bgSeed, paletteBg = true }: Props) {
   const [failed, setFailed] = useState(false);
+  const fill = paletteBg ? avatarBgFromSeed(bgSeed ?? src) : undefined;
+
   if (failed) {
     return (
       <span
-        className={`inline-block rounded-full bg-gradient-to-br from-amber-400 to-rose-500 object-cover ${className}`}
-        style={style}
+        className={`inline-block rounded-full object-cover ${className} ${fill ? "" : "bg-gradient-to-br from-amber-400 to-rose-500"}`}
+        style={{ ...style, ...(fill ? { backgroundColor: fill } : {}) }}
         aria-hidden
       />
     );
@@ -24,7 +31,7 @@ export function AvatarImg({ src, alt = "", className = "", style }: Props) {
       src={src}
       alt={alt}
       className={className}
-      style={style}
+      style={{ ...style, ...(fill ? { backgroundColor: fill } : {}) }}
       loading="lazy"
       decoding="async"
       referrerPolicy="no-referrer"

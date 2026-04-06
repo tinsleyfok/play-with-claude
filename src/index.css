@@ -20,6 +20,8 @@
 @theme {
   --font-rethink: "Rethink Sans", sans-serif;
   --font-charter: "Charter", "Playfair Display", Georgia, serif;
+  /* Bold Chapter: licensed Chapter if installed, else Charter / Playfair (already in index.html). */
+  --font-chapter: "Chapter", "Charter", "Playfair Display", Georgia, serif;
 }
 
 /* Like pill — tap feedback (Like page) */
@@ -378,6 +380,16 @@
 
 /* ── Hide scrollbar utility ── */
 .overflow-x-auto::-webkit-scrollbar {
+  display: none;
+}
+
+/* MVP multiline search: scroll without visible bar */
+.mvp-search-textarea {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.mvp-search-textarea::-webkit-scrollbar {
   display: none;
 }
 

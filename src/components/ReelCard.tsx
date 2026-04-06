@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useLayoutEffect, useCallback, useMemo } fr
 import { useTheme } from "../hooks/useTheme";
 import { IconLike, IconComment, IconBookmark, IconShare, IconMore, IconQuoteOpen, IconQuoteClose, IconPlus } from "./Icons";
 import { AvatarImg } from "./AvatarImg";
+import { avatarBgFromSeed } from "../utils/avatarBgPalette";
 
 type ReelVariant = "video" | "image" | "discussion" | "article";
 type ImageAspect = "1:1" | "4:3" | "3:4";
@@ -366,18 +367,28 @@ function ActionBtn({ color, count, children }: { color: string; count?: string; 
 
 /* ─── Shared helpers ─── */
 
-function Avatar({ url, size, isDark }: { url?: string; size: number; isDark?: boolean }) {
+function Avatar({ url, size, isDark, bgSeed }: { url?: string; size: number; isDark?: boolean; bgSeed?: string }) {
   if (url) {
     return (
       <AvatarImg
         src={url}
         alt=""
+        bgSeed={bgSeed ?? url}
         className="rounded-full object-cover flex-shrink-0"
         style={{ width: size, height: size }}
       />
     );
   }
-  return <div className="rounded-full flex-shrink-0" style={{ width: size, height: size, background: isDark ? "#333" : "#ddd" }} />;
+  return (
+    <div
+      className="rounded-full flex-shrink-0"
+      style={{
+        width: size,
+        height: size,
+        background: bgSeed ? avatarBgFromSeed(bgSeed) : isDark ? "#333" : "#ddd",
+      }}
+    />
+  );
 }
 
 function ActionIcon({ count, children }: { count?: string; children: React.ReactNode }) {
@@ -395,7 +406,7 @@ function UserRow({ avatarUrl, username, isDark, light }: { avatarUrl?: string; u
 
   return (
     <div className="flex items-center gap-2">
-      <Avatar url={avatarUrl} size={32} isDark={isDark} />
+      <Avatar url={avatarUrl} size={32} isDark={isDark} bgSeed={username} />
       <span className="font-rethink text-[16px] font-medium leading-none" style={{ color: textColor }}>
         {username}
       </span>

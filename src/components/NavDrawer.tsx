@@ -39,14 +39,28 @@ const NAV_ITEMS: NavItem[] = [
   },
 ];
 
+/** Same as App feed / MVP home / V1 tabs: bottom-right above tab bar on phone; top-left in desktop phone frame. */
+const HAMBURGER_APP_LIKE_POSITION =
+  "bottom-[calc(96px+env(safe-area-inset-bottom,0px))] right-4 left-auto top-auto md:bottom-auto md:left-4 md:right-auto md:top-1.5";
+
 export function NavDrawer() {
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
   const { theme, toggleTheme } = useTheme();
   const isDark = theme === "dark";
-  /** In-app: small screens use bottom-left so we do not cover MVP/V1 header controls; md+ keeps top-left (centered phone). MVP profile has no tab bar + back is top-left, so use top-right there. */
   const inApp = pathname.startsWith("/app");
   const isMvpProfile = pathname.startsWith("/app/mvp/profile");
+  const isAnimation = pathname.startsWith("/animation");
+  const isInspiration = pathname.startsWith("/inspiration");
+  const appLikeHamburger =
+    (inApp && !isMvpProfile) || isAnimation || isInspiration;
+
+  const hamburgerPositionClass = isMvpProfile
+    ? "right-4 top-1.5"
+    : appLikeHamburger
+      ? HAMBURGER_APP_LIKE_POSITION
+      : "top-1.5 right-4 left-auto md:left-4 md:right-auto";
+
   const [expanded, setExpanded] = useState<Record<string, boolean>>(() => {
     const init: Record<string, boolean> = {};
     NAV_ITEMS.forEach(item => {
@@ -62,13 +76,7 @@ export function NavDrawer() {
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-label="Open menu"
-        className={`fixed z-[1200] w-10 h-10 border-none rounded-[10px] cursor-pointer flex flex-col items-center justify-center gap-[5px] p-0 transition-shadow ${
-          !inApp
-            ? "left-4 top-1.5"
-            : isMvpProfile
-              ? "right-4 top-1.5"
-              : "bottom-[calc(96px+env(safe-area-inset-bottom,0px))] left-4 top-auto md:bottom-auto md:left-4 md:top-1.5"
-        } ${
+        className={`fixed z-[1200] w-10 h-10 border-none rounded-[10px] cursor-pointer flex flex-col items-center justify-center gap-[5px] p-0 transition-shadow ${hamburgerPositionClass} ${
           isDark
             ? "bg-[#2c2c2c] shadow-[0_2px_10px_rgba(0,0,0,0.4)] hover:bg-[#353535]"
             : "bg-white shadow-[0_1px_3px_rgba(0,0,0,0.08)] hover:shadow-[0_2px_8px_rgba(0,0,0,0.12)]"

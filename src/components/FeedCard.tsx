@@ -1,5 +1,6 @@
 import { useTheme } from "../hooks/useTheme";
 import { AvatarImg } from "./AvatarImg";
+import { avatarBgFromSeed } from "../utils/avatarBgPalette";
 
 type CardVariant = "video" | "image" | "article" | "discussion" | "draft";
 type CardSize = "portrait" | "landscape" | "square";
@@ -175,11 +176,16 @@ function CardFooter({ card, isDark }: { card: FeedCardData; isDark: boolean }) {
       )}
       <div className="flex items-center gap-1">
         {card.avatarUrl ? (
-          <AvatarImg src={card.avatarUrl} alt="" className="w-3.5 h-3.5 rounded-full flex-shrink-0 object-cover" />
+          <AvatarImg
+            src={card.avatarUrl}
+            alt=""
+            bgSeed={card.username}
+            className="w-3.5 h-3.5 rounded-full flex-shrink-0 object-cover"
+          />
         ) : (
           <div
             className="w-3.5 h-3.5 rounded-full flex-shrink-0"
-            style={{ background: isDark ? "#333" : "#ddd" }}
+            style={{ background: avatarBgFromSeed(card.username) }}
           />
         )}
         <span

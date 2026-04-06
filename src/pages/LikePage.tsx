@@ -281,6 +281,7 @@ export function LikePage() {
                   <AvatarImg
                     src={holoAvatar("alcov", 56)}
                     alt=""
+                    bgSeed="alcov.co"
                     className={`h-7 w-7 rounded-full flex-shrink-0 object-cover ring-1 ${
                       isDark ? "ring-white/10" : "ring-black/10"
                     }`}

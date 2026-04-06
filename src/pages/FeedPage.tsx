@@ -1,10 +1,9 @@
 import { FeedTopNav } from "../components/FeedTopNav";
 import { FeedCard, type FeedCardData } from "../components/FeedCard";
-import { holoAvatar } from "../utils/holoAvatar";
-import { publicUrl, tinsleyProfilePhoto } from "../utils/publicAsset";
+import { publicUrl } from "../utils/publicAsset";
+import { feedProfileAvatar } from "../utils/profileAvatars";
 
 const feedImg = (file: string) => publicUrl(`images/${file}`);
-const avatar = (seed: string) => holoAvatar(seed);
 
 export const MOCK_LEFT: FeedCardData[] = [
   // ── Custom images up top ──
@@ -16,7 +15,7 @@ export const MOCK_LEFT: FeedCardData[] = [
     username: "skygazer",
     likes: "6.2K",
     imageUrl: feedImg("feed-clouds.png"),
-    avatarUrl: avatar("skygazer"),
+    avatarUrl: feedProfileAvatar("l1", "skygazer"),
   },
   {
     id: "l2",
@@ -26,7 +25,7 @@ export const MOCK_LEFT: FeedCardData[] = [
     username: "pineviewpuppies",
     likes: "15.6K",
     imageUrl: feedImg("feed-puppies-row.png"),
-    avatarUrl: avatar("pineview"),
+    avatarUrl: feedProfileAvatar("l2", "pineviewpuppies"),
   },
   // ── Mixed content ──
   {
@@ -36,7 +35,7 @@ export const MOCK_LEFT: FeedCardData[] = [
     title: "Torn between options for funding HDB purchase",
     username: "C~A~T~A~R~I~N",
     likes: "110",
-    avatarUrl: avatar("catarin"),
+    avatarUrl: feedProfileAvatar("l3", "C~A~T~A~R~I~N"),
   },
   {
     id: "l4",
@@ -46,7 +45,7 @@ export const MOCK_LEFT: FeedCardData[] = [
     username: "adrianvvlog",
     likes: "1.6K",
     imageUrl: feedImg("feed-hvac.jpg"),
-    avatarUrl: avatar("adrian"),
+    avatarUrl: feedProfileAvatar("l4", "adrianvvlog"),
   },
   {
     id: "l5",
@@ -56,7 +55,7 @@ export const MOCK_LEFT: FeedCardData[] = [
     username: "chihuahua.queen",
     likes: "8.3K",
     imageUrl: feedImg("feed-chihuahua.png"),
-    avatarUrl: avatar("chihuahua"),
+    avatarUrl: feedProfileAvatar("l5", "chihuahua.queen"),
   },
   {
     id: "l6",
@@ -66,7 +65,7 @@ export const MOCK_LEFT: FeedCardData[] = [
     username: "tokyodrifter",
     likes: "4.2K",
     imageUrl: feedImg("feed-food.jpg"),
-    avatarUrl: avatar("tokyo"),
+    avatarUrl: feedProfileAvatar("l6", "tokyodrifter"),
   },
   {
     id: "l7",
@@ -76,7 +75,7 @@ export const MOCK_LEFT: FeedCardData[] = [
     username: "trailvibes",
     likes: "8.1K",
     imageUrl: feedImg("feed-decor1.jpg"),
-    avatarUrl: avatar("trailvibes"),
+    avatarUrl: feedProfileAvatar("l7", "trailvibes"),
   },
   {
     id: "l8",
@@ -84,7 +83,7 @@ export const MOCK_LEFT: FeedCardData[] = [
     title: "Stop optimizing for productivity. Start optimizing for joy.",
     username: "mindful_dev",
     likes: "1.4K",
-    avatarUrl: avatar("mindful"),
+    avatarUrl: feedProfileAvatar("l8", "mindful_dev"),
     body: "I spent 5 years perfecting my morning routine, tracking every habit, and optimizing my schedule down to 15-minute blocks. Then I burned out. Here's what I learned about the difference between being productive and being alive...",
   },
   {
@@ -95,7 +94,7 @@ export const MOCK_LEFT: FeedCardData[] = [
     username: "tinsleyfok",
     likes: "3.9K",
     imageUrl: feedImg("feed-food.jpg"),
-    avatarUrl: tinsleyProfilePhoto,
+    avatarUrl: feedProfileAvatar("l9", "tinsleyfok"),
   },
   {
     id: "l10",
@@ -105,7 +104,7 @@ export const MOCK_LEFT: FeedCardData[] = [
     username: "makerstudio",
     likes: "3.3K",
     imageUrl: feedImg("feed-interior.jpg"),
-    avatarUrl: avatar("maker"),
+    avatarUrl: feedProfileAvatar("l10", "makerstudio"),
   },
   {
     id: "l11",
@@ -114,7 +113,7 @@ export const MOCK_LEFT: FeedCardData[] = [
     title: "What's one thing you wish someone told you before your first job?",
     username: "career.mentor",
     likes: "5.1K",
-    avatarUrl: avatar("career"),
+    avatarUrl: feedProfileAvatar("l11", "career.mentor"),
   },
   {
     id: "l12",
@@ -124,7 +123,7 @@ export const MOCK_LEFT: FeedCardData[] = [
     username: "longtimenosea",
     likes: "621",
     imageUrl: feedImg("living-room.png"),
-    avatarUrl: avatar("longtime"),
+    avatarUrl: feedProfileAvatar("l12", "longtimenosea"),
   },
 ];
 
@@ -138,7 +137,7 @@ export const MOCK_RIGHT: FeedCardData[] = [
     username: "pineviewpuppies",
     likes: "12.1K",
     imageUrl: feedImg("feed-puppies-two.png"),
-    avatarUrl: avatar("pineview"),
+    avatarUrl: feedProfileAvatar("r1", "pineviewpuppies"),
   },
   {
     id: "r2",
@@ -148,7 +147,7 @@ export const MOCK_RIGHT: FeedCardData[] = [
     username: "sparkle.craft",
     likes: "4.7K",
     imageUrl: feedImg("feed-beads.png"),
-    avatarUrl: avatar("sparkle"),
+    avatarUrl: feedProfileAvatar("r2", "sparkle.craft"),
   },
   // ── Mixed content ──
   {
@@ -159,7 +158,7 @@ export const MOCK_RIGHT: FeedCardData[] = [
     username: "baoyue999",
     likes: "12.9K",
     imageUrl: feedImg("living-room.png"),
-    avatarUrl: avatar("baoyue"),
+    avatarUrl: feedProfileAvatar("r3", "baoyue999"),
   },
   {
     id: "r4",
@@ -167,7 +166,7 @@ export const MOCK_RIGHT: FeedCardData[] = [
     title: "Why 90% of Short Videos Die in the First 2 Seconds",
     username: "Significant_Soup2558",
     likes: "212",
-    avatarUrl: avatar("soup"),
+    avatarUrl: feedProfileAvatar("r4", "Significant_Soup2558"),
     body: "I've analyzed over 500 viral short-form videos and the pattern is crystal clear. The first 2 seconds determine everything. Here's my framework for hooks that actually work, broken down by content type...",
   },
   {
@@ -178,7 +177,7 @@ export const MOCK_RIGHT: FeedCardData[] = [
     username: "wanderlust.anna",
     likes: "1.8K",
     imageUrl: feedImg("feed-living.jpg"),
-    avatarUrl: avatar("anna"),
+    avatarUrl: feedProfileAvatar("r5", "wanderlust.anna"),
   },
   {
     id: "r6",
@@ -188,7 +187,7 @@ export const MOCK_RIGHT: FeedCardData[] = [
     username: "foodie.explorer",
     likes: "5.7K",
     imageUrl: feedImg("feed-food.jpg"),
-    avatarUrl: avatar("foodie"),
+    avatarUrl: feedProfileAvatar("r6", "foodie.explorer"),
   },
   {
     id: "r7",
@@ -197,7 +196,7 @@ export const MOCK_RIGHT: FeedCardData[] = [
     title: "Anyone else feel like social media is just everyone performing happiness?",
     username: "realtalks",
     likes: "3.8K",
-    avatarUrl: avatar("realtalks"),
+    avatarUrl: feedProfileAvatar("r7", "realtalks"),
   },
   {
     id: "r8",
@@ -207,7 +206,7 @@ export const MOCK_RIGHT: FeedCardData[] = [
     username: "slowmornings",
     likes: "4.5K",
     imageUrl: feedImg("feed-decor2.jpg"),
-    avatarUrl: avatar("slowmornings"),
+    avatarUrl: feedProfileAvatar("r8", "slowmornings"),
   },
   {
     id: "r9",
@@ -217,7 +216,7 @@ export const MOCK_RIGHT: FeedCardData[] = [
     username: "wanderlust.anna",
     likes: "956",
     imageUrl: feedImg("feed-cat.jpg"),
-    avatarUrl: avatar("anna"),
+    avatarUrl: feedProfileAvatar("r9", "wanderlust.anna"),
   },
   {
     id: "r10",
@@ -225,7 +224,7 @@ export const MOCK_RIGHT: FeedCardData[] = [
     title: "The real cost of living in NYC as a 25-year-old",
     username: "nyc.reality",
     likes: "6.8K",
-    avatarUrl: avatar("nyc"),
+    avatarUrl: feedProfileAvatar("r10", "nyc.reality"),
     body: "Everyone talks about the high rent but nobody mentions the $18 salads, $7 coffees, and the fact that you'll spend $150/month just on laundry. Here's my actual monthly breakdown after 2 years in Manhattan...",
   },
   {
@@ -236,7 +235,7 @@ export const MOCK_RIGHT: FeedCardData[] = [
     username: "analog.dreams",
     likes: "789",
     imageUrl: feedImg("feed-booblight.jpg"),
-    avatarUrl: avatar("analog"),
+    avatarUrl: feedProfileAvatar("r11", "analog.dreams"),
   },
   {
     id: "r12",
@@ -246,7 +245,7 @@ export const MOCK_RIGHT: FeedCardData[] = [
     username: "greenthumb.daily",
     likes: "2.1K",
     imageUrl: feedImg("feed-decor1.jpg"),
-    avatarUrl: avatar("green"),
+    avatarUrl: feedProfileAvatar("r12", "greenthumb.daily"),
   },
 ];
 

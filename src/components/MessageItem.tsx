@@ -1,5 +1,6 @@
 import { useTheme } from "../hooks/useTheme";
 import { AvatarImg } from "./AvatarImg";
+import { avatarBgFromSeed } from "../utils/avatarBgPalette";
 
 export interface MessageData {
   id: string;
@@ -34,12 +35,13 @@ export function MessageItem({
           <AvatarImg
             src={data.avatarUrl}
             alt=""
+            bgSeed={data.username}
             className="h-14 w-14 shrink-0 rounded-full object-cover ring-1 ring-black/[0.12] dark:ring-white/[0.12]"
           />
         ) : (
           <div
             className="h-14 w-14 shrink-0 rounded-full ring-1 ring-black/[0.12] dark:ring-white/[0.12]"
-            style={{ background: data.avatarBg || (isDark ? "#333" : "#ddd") }}
+            style={{ background: data.avatarBg || avatarBgFromSeed(data.username) }}
           />
         )}
         <div className="flex min-w-0 flex-1 flex-col gap-[3px]">
@@ -71,11 +73,11 @@ export function MessageItem({
     >
       <div className="flex w-full items-center gap-3">
         {data.avatarUrl ? (
-          <AvatarImg src={data.avatarUrl} alt="" className="h-14 w-14 shrink-0 rounded-full object-cover" />
+          <AvatarImg src={data.avatarUrl} alt="" bgSeed={data.username} className="h-14 w-14 shrink-0 rounded-full object-cover" />
         ) : (
           <div
             className="h-14 w-14 shrink-0 rounded-full"
-            style={{ background: data.avatarBg || (isDark ? "#333" : "#ddd") }}
+            style={{ background: data.avatarBg || avatarBgFromSeed(data.username) }}
           />
         )}
         <div className="flex min-w-0 flex-1 flex-col gap-[3px]">

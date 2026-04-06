@@ -1,8 +1,8 @@
 import { useLocation, useNavigate } from "react-router";
 import { useTheme } from "../hooks/useTheme";
 import { MessageItem, type MessageData } from "../components/MessageItem";
-import { holoAvatar } from "../utils/holoAvatar";
 import { tinsleyProfilePhoto } from "../utils/publicAsset";
+import { feedProfileAvatar } from "../utils/profileAvatars";
 import { AvatarImg } from "../components/AvatarImg";
 
 const ACTIVITIES = [
@@ -33,13 +33,55 @@ const ACTIVITIES = [
 ];
 
 const MOCK_MESSAGES: MessageData[] = [
-  { id: "m1", username: "baoyue999", message: "😋", time: "Just now", avatarUrl: holoAvatar("baoyue999") },
-  { id: "m2", username: "longtimenosea", message: "Now I'm super addicted to golf", time: "2h", avatarUrl: holoAvatar("longtimenosea") },
-  { id: "m3", username: "smartyquang", message: "[Image]", time: "1w", avatarUrl: holoAvatar("smartyquang") },
-  { id: "m4", username: "rockingao", message: ";)", time: "1w", avatarUrl: holoAvatar("rockingao") },
-  { id: "m5", username: "Junwei", message: "Sure!", time: "1w", avatarUrl: holoAvatar("Junwei") },
-  { id: "m6", username: "Junwei", message: "I cannot bewlieve this is what you want to say.", time: "1w", avatarUrl: holoAvatar("Junwei") },
-  { id: "m7", username: "helloworld", message: "[Image]", time: "3 hrs ago", avatarUrl: holoAvatar("helloworld") },
+  {
+    id: "m1",
+    username: "baoyue999",
+    message: "😋",
+    time: "Just now",
+    avatarUrl: feedProfileAvatar("m1", "baoyue999"),
+  },
+  {
+    id: "m2",
+    username: "longtimenosea",
+    message: "Now I'm super addicted to golf",
+    time: "2h",
+    avatarUrl: feedProfileAvatar("m2", "longtimenosea"),
+  },
+  {
+    id: "m3",
+    username: "smartyquang",
+    message: "[Image]",
+    time: "1w",
+    avatarUrl: feedProfileAvatar("m3", "smartyquang"),
+  },
+  {
+    id: "m4",
+    username: "rockingao",
+    message: ";)",
+    time: "1w",
+    avatarUrl: feedProfileAvatar("m4", "rockingao"),
+  },
+  {
+    id: "m5",
+    username: "Junwei",
+    message: "Sure!",
+    time: "1w",
+    avatarUrl: feedProfileAvatar("m5", "Junwei"),
+  },
+  {
+    id: "m6",
+    username: "Junwei",
+    message: "I cannot bewlieve this is what you want to say.",
+    time: "1w",
+    avatarUrl: feedProfileAvatar("m6", "Junwei"),
+  },
+  {
+    id: "m7",
+    username: "helloworld",
+    message: "[Image]",
+    time: "3 hrs ago",
+    avatarUrl: feedProfileAvatar("m7", "helloworld"),
+  },
 ];
 
 /** Figma screen fill — light inbox (MVP + shell via AppPage) */
@@ -91,7 +133,7 @@ export function InboxPage() {
               onClick={() => navigate("/app/mvp/profile")}
             >
               <div className="h-[28px] w-[28px] overflow-hidden rounded-full ring-1 ring-black/10 dark:ring-white/10">
-                <AvatarImg src={tinsleyProfilePhoto} alt="" className="h-full w-full object-cover" />
+                <AvatarImg src={tinsleyProfilePhoto} alt="" bgSeed="tinsleyfok" className="h-full w-full object-cover" />
               </div>
             </button>
           </div>
@@ -153,7 +195,7 @@ export function InboxPage() {
             onClick={() => navigate("/app/profile")}
           >
             <div className="h-[28px] w-[28px] overflow-hidden rounded-full ring-1 ring-black/10 dark:ring-white/10">
-              <AvatarImg src={tinsleyProfilePhoto} alt="" className="h-full w-full object-cover" />
+              <AvatarImg src={tinsleyProfilePhoto} alt="" bgSeed="tinsleyfok" className="h-full w-full object-cover" />
             </div>
           </button>
         </div>
