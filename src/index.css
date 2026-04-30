@@ -183,6 +183,16 @@
     height: 100% !important;
     border-radius: 0 !important;
   }
+
+  /* On mobile the phone wrapper fills the viewport, so the hint overlay should too — drop desktop inset/radius. */
+  .phone-hint-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    border-radius: 0 !important;
+  }
 }
 
 /* Referral entry (and similar): clip scroll content to the inner screen curve — matches Phone.png inset layer (56px − 6px). */
@@ -295,6 +305,124 @@
   flex: 1 1 0%;
   min-height: 0;
   flex-direction: column;
+}
+
+/* System routes: no phone frame; fill main next to nav rail on desktop */
+.app-shell--system {
+  flex: 1 1 0%;
+  min-height: 0;
+}
+
+.app-system-route-inner {
+  position: relative;
+  display: flex;
+  flex: 1 1 0%;
+  min-height: 0;
+  width: 100%;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+@media (min-width: 769px) {
+  .app-shell.app-shell--system {
+    align-items: stretch;
+    justify-content: flex-start;
+  }
+}
+
+/* Avatar system page: complexity slider — ember orange (matches OpeningAnimationCanvas) */
+.complexity-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 1.375rem;
+  margin: 0;
+  background: transparent;
+  --ember: #ff6030;
+}
+
+.complexity-range:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 2px;
+}
+
+.complexity-range--light::-webkit-slider-runnable-track {
+  height: 8px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    to right,
+    var(--ember) 0%,
+    var(--ember) var(--complexity, 0%),
+    rgba(0, 0, 0, 0.08) var(--complexity, 0%),
+    rgba(0, 0, 0, 0.08) 100%
+  );
+}
+
+.complexity-range--dark::-webkit-slider-runnable-track {
+  height: 8px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    to right,
+    var(--ember) 0%,
+    var(--ember) var(--complexity, 0%),
+    rgba(255, 255, 255, 0.12) var(--complexity, 0%),
+    rgba(255, 255, 255, 0.12) 100%
+  );
+}
+
+.complexity-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.92);
+  background: var(--ember);
+  box-shadow: none;
+}
+
+.complexity-range--dark::-webkit-slider-thumb {
+  border-color: rgba(0, 0, 0, 0.35);
+  box-shadow: none;
+}
+
+.complexity-range::-moz-range-track {
+  height: 8px;
+  border-radius: 9999px;
+}
+
+.complexity-range--light::-moz-range-track {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.complexity-range--dark::-moz-range-track {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.complexity-range--light::-moz-range-progress {
+  height: 8px;
+  border-radius: 9999px 0 0 9999px;
+  background: var(--ember);
+}
+
+.complexity-range--dark::-moz-range-progress {
+  height: 8px;
+  border-radius: 9999px 0 0 9999px;
+  background: var(--ember);
+}
+
+.complexity-range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.92);
+  background: var(--ember);
+  box-shadow: none;
+}
+
+.complexity-range--dark::-moz-range-thumb {
+  border-color: rgba(0, 0, 0, 0.35);
+  box-shadow: none;
 }
 
 .app-phone-wrapper {

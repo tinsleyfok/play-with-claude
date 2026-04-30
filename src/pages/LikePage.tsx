@@ -1,5 +1,7 @@
 import type { MouseEvent, ReactNode, TouchEvent } from "react";
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import Lottie from "lottie-react";
 import {
   IconBookmarkFilled,
   IconBookmarkOutline,
@@ -17,6 +19,7 @@ import {
 import { useTheme } from "../hooks/useTheme";
 import { AvatarImg } from "../components/AvatarImg";
 import { DEFAULT_PROFILE_PICTURES } from "../utils/profileAvatars";
+import doubleClickLottie from "../../public/Animation/double-click.json";
 
 const LIKE_ACTIVE_RED = "#FF3B30";
 const BOOKMARK_GOLD = "#EAB308";
@@ -33,6 +36,8 @@ const FLY_ANIM_TOTAL_MS = FLY_ANIM_BURST_MS + FLY_ANIM_HOLD_MS + FLY_ANIM_FLY_MS
 /** When the flying heart hits the pill (before fade-out). */
 const FLY_ANIM_LAND_AT_MS = FLY_ANIM_BURST_MS + FLY_ANIM_HOLD_MS + FLY_ANIM_FLY_MS;
 
+/** Demo page: hint shows on every visit; only dismissed within the current session/page lifetime. */
+
 function formatSaveCount(n: number): string {
   if (n < 1000) return String(n);
   const k = n / 1000;
@@ -42,10 +47,17 @@ function formatSaveCount(n: number): string {
 
 /**
  * Feed article + engagement — from Figma MVP node 4571:314944 (402×874).
+ * Hint overlay scoped to phone container; centered Lottie. (cache-bust 2026-04-29T18:13)
  */
 export function LikePage() {
   const { theme } = useTheme();
   const isDark = theme === "dark";
+
+  const [showLikeHint, setShowLikeHint] = useState(true);
+
+  const dismissLikeHint = useCallback(() => {
+    setShowLikeHint(false);
+  }, []);
 
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(1);
@@ -68,6 +80,9 @@ export function LikePage() {
   const flySessionIdRef = useRef(0);
   /** Viewport coords where the double-tap / double-click happened (burst origin). */
   const flyOriginRef = useRef({ x: 0, y: 0 });
+
+  const dismissLikeHintRef = useRef(dismissLikeHint);
+  dismissLikeHintRef.current = dismissLikeHint;
 
   const triggerDoubleTapLike = useCallback((clientX: number, clientY: number) => {
     applyLikeOnLandRef.current = !liked;
@@ -166,6 +181,7 @@ export function LikePage() {
         setLiked(true);
         setLikeCount((c) => c + 1);
         setHeartAnimKey((k) => k + 1);
+        dismissLikeHintRef.current();
       }
     }, FLY_ANIM_LAND_AT_MS);
 
@@ -178,6 +194,7 @@ export function LikePage() {
           setLiked(true);
           setLikeCount((c) => c + 1);
           setHeartAnimKey((k) => k + 1);
+          dismissLikeHintRef.current();
         } else {
           applyLikeOnLandRef.current = false;
         }
@@ -198,6 +215,7 @@ export function LikePage() {
       setLiked(true);
       setLikeCount((c) => c + 1);
       setHeartAnimKey((k) => k + 1);
+      dismissLikeHint();
     }
   }
 
@@ -223,6 +241,59 @@ export function LikePage() {
   const plusCircleBg = isDark ? "#1C1C1E" : "rgba(0, 0, 0, 0.08)";
 
   const icon = text;
+
+  const likeHintLayer = (
+    <AnimatePresence>
+      {showLikeHint ? (
+        <motion.div
+          key="like-hint"
+          /* Match the rounded inner screen of Phone.png on desktop (inset 6, radius 56).
+             z above Phone.png (z-2). On mobile (.phone fills viewport) we override to inset 0/no radius. */
+          className="phone-hint-overlay absolute z-[3] overflow-hidden pointer-events-none"
+          style={{
+            isolation: "isolate",
+            top: 6,
+            left: 6,
+            right: 6,
+            bottom: 6,
+            borderRadius: 56,
+          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          <button
+            type="button"
+            className="pointer-events-auto absolute inset-0 border-none cursor-pointer p-0 appearance-none"
+            style={{
+              WebkitTapHighlightColor: "transparent",
+              background: "rgba(0,0,0,0.64)",
+            }}
+            aria-label="Continue"
+            onClick={dismissLikeHint}
+          />
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <motion.div
+              className="pointer-events-none flex flex-col items-center justify-center gap-3"
+              initial={{ scale: 0.92, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.96, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 360, damping: 30 }}
+            >
+              <LikeDoubleTapHintVisual />
+              <p
+                className="m-0 font-rethink text-white text-center"
+                style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.3 }}
+              >
+                Double click to like
+              </p>
+            </motion.div>
+          </div>
+        </motion.div>
+      ) : null}
+    </AnimatePresence>
+  );
 
   return (
     <div className="min-h-screen flex items-center justify-center relative" style={{ background: outerBg }}>
@@ -255,7 +326,7 @@ export function LikePage() {
           style={{ top: 6, left: 6, right: 6, bottom: 6, background: screen }}
         />
         <div
-          className="phone-container flex flex-col overflow-hidden font-rethink"
+          className="phone-container relative flex flex-col overflow-hidden font-rethink"
           data-theme={theme}
           style={{ background: screen, color: text }}
         >
@@ -442,7 +513,21 @@ export function LikePage() {
             </div>
           </div>
         </div>
+        {likeHintLayer}
       </div>
+    </div>
+  );
+}
+
+function LikeDoubleTapHintVisual() {
+  return (
+    <div className="flex items-center justify-center" aria-hidden>
+      <Lottie
+        animationData={doubleClickLottie}
+        loop
+        autoplay
+        style={{ width: 200, height: 200 }}
+      />
     </div>
   );
 }

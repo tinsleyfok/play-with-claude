@@ -19,6 +19,25 @@ export const DEFAULT_PROFILE_PICTURES = [
   publicUrl("Profiles/1-11.png"),
 ] as const;
 
+/**
+ * Display metadata for the default avatar gallery (modal on `/app/system/avatar`).
+ * Order matches `DEFAULT_PROFILE_PICTURES`. Colors come from `AVATAR_BG_PALETTE`.
+ */
+export const DEFAULT_AVATAR_PROFILES: ReadonlyArray<{ src: string; name: string; color: string }> = [
+  { src: DEFAULT_PROFILE_PICTURES[0]!,  name: "Julia",    color: "#D1BDEA" },
+  { src: DEFAULT_PROFILE_PICTURES[1]!,  name: "Annie",    color: "#FCBAC3" },
+  { src: DEFAULT_PROFILE_PICTURES[2]!,  name: "Charles",  color: "#A4DFC0" },
+  { src: DEFAULT_PROFILE_PICTURES[3]!,  name: "Ariel",    color: "#D1BDEA" },
+  { src: DEFAULT_PROFILE_PICTURES[4]!,  name: "Jiachen",  color: "#91D9F4" },
+  { src: DEFAULT_PROFILE_PICTURES[5]!,  name: "Jiaxuan",  color: "#FCBAC3" },
+  { src: DEFAULT_PROFILE_PICTURES[6]!,  name: "Tianyu",   color: "#91D9F4" },
+  { src: DEFAULT_PROFILE_PICTURES[7]!,  name: "Chunwei",  color: "#E7B38E" },
+  { src: DEFAULT_PROFILE_PICTURES[8]!,  name: "Chipeng",  color: "#91D9F4" },
+  { src: DEFAULT_PROFILE_PICTURES[9]!,  name: "Ayush",    color: "#A4DFC0" },
+  { src: DEFAULT_PROFILE_PICTURES[10]!, name: "Quang",    color: "#D1BDEA" },
+  { src: DEFAULT_PROFILE_PICTURES[11]!, name: "Tinsley",  color: "#F8DB8B" },
+];
+
 /** pravatar.cc ships a fixed set of portrait photos; `img` picks one deterministically. */
 const PRAVATAR_IMG_COUNT = 70;
 

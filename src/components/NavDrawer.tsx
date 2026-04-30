@@ -2,11 +2,25 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router";
 import { useTheme } from "../hooks/useTheme";
 
+/** Leaf link under a folder. `exact: true` requires pathname to equal `to` (no prefix match). */
+export type NavTreeLeaf = { to: string; label: string; exact?: boolean };
+/** Nested sub-folder under any nav folder (e.g. System → Avatar). */
+export type NavTreeGroup = { label: string; children: NavTreeLeaf[] };
+
+function isNavTreeGroup(entry: NavTreeLeaf | NavTreeGroup): entry is NavTreeGroup {
+  return "children" in entry && Array.isArray(entry.children);
+}
+
+function pathMatchesNavLeaf(pathname: string, leaf: { to: string; exact?: boolean }): boolean {
+  if (leaf.exact) return pathname === leaf.to;
+  return pathname === leaf.to || pathname.startsWith(`${leaf.to}/`);
+}
+
 interface NavItem {
   to: string;
   label: string;
   isFolder?: boolean;
-  children?: { to: string; label: string }[];
+  children?: (NavTreeLeaf | NavTreeGroup)[];
 }
 
 const NAV_ITEMS: NavItem[] = [
@@ -17,8 +31,14 @@ const NAV_ITEMS: NavItem[] = [
     isFolder: true,
     children: [
       { to: "/app/mvp", label: "MVP" },
-      { to: "/app", label: "V1" },
+      { to: "/app", label: "V1", exact: true },
     ],
+  },
+  {
+    to: "/app/system",
+    label: "System",
+    isFolder: true,
+    children: [{ to: "/app/system/avatar", label: "Avatar" }],
   },
   {
     to: "/animation",
@@ -70,6 +90,11 @@ export function NavDrawer() {
     return init;
   });
 
+  /** Second-level folders (e.g. App → System). */
+  const [expandedSub, setExpandedSub] = useState<Record<string, boolean>>(() => ({
+    "navgroup:/app:System": true,
+  }));
+
   return (
     <>
       {/* Hamburger */}
@@ -98,7 +123,11 @@ export function NavDrawer() {
       <nav className={`nav-drawer min-h-0 ${open ? "open" : ""} ${isDark ? "!bg-[#202020]" : ""}`}>
         <div className="flex-1 flex flex-col gap-0.5 min-h-0 overflow-y-auto overflow-x-hidden pr-0.5 -mr-0.5 pb-8">
         {NAV_ITEMS.map((item, i) => {
-          const isActive = pathname === item.to || item.children?.some(c => pathname === c.to);
+          const isActive =
+            pathname === item.to ||
+            item.children?.some((c) =>
+              isNavTreeGroup(c) ? c.children.some((l) => pathMatchesNavLeaf(pathname, l)) : pathMatchesNavLeaf(pathname, c),
+            );
           const textColor = isDark ? "#ebebeb" : "#37352f";
           const hoverBg = isDark ? "rgba(255,255,255,0.06)" : "rgba(55,53,47,0.06)";
           return (
@@ -141,11 +170,82 @@ export function NavDrawer() {
               {item.children && expanded[item.to] && (
                 <div className="flex flex-col gap-0.5 mt-0.5">
                   {item.children.map((child) => {
-                    const childActive = pathname === child.to;
+                    if (isNavTreeGroup(child)) {
+                      const groupKey = `navgroup:${item.to}:${child.label}`;
+                      const groupOpen = expandedSub[groupKey] ?? true;
+                      const groupActive = child.children.some((l) => pathMatchesNavLeaf(pathname, l));
+                      return (
+                        <div key={groupKey} className="flex flex-col gap-0.5">
+                          <button
+                            type="button"
+                            onClick={() => setExpandedSub((s) => ({ ...s, [groupKey]: !groupOpen }))}
+                            className="flex w-full items-center justify-between rounded-lg border-none bg-transparent py-2.5 pl-3 pr-2 text-left text-[14px] cursor-pointer transition-colors"
+                            style={{
+                              color: textColor,
+                              opacity: groupActive ? 1 : 0.65,
+                              fontWeight: 600,
+                            }}
+                          >
+                            <span className="flex items-center gap-2">
+                              <span
+                                className="h-[5px] w-[5px] shrink-0 rounded-full"
+                                style={{ background: isDark ? "rgba(255,255,255,0.25)" : "rgba(55,53,47,0.25)" }}
+                              />
+                              {child.label}
+                            </span>
+                            <svg
+                              width="12"
+                              height="12"
+                              viewBox="0 0 12 12"
+                              fill="none"
+                              className="shrink-0 transition-transform duration-200"
+                              style={{ transform: groupOpen ? "rotate(90deg)" : "rotate(0deg)", opacity: 0.4 }}
+                              aria-hidden
+                            >
+                              <path
+                                d="M4.5 2.5L8 6L4.5 9.5"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </button>
+                          {groupOpen && (
+                            <div className="flex flex-col gap-0.5">
+                              {child.children.map((leaf) => {
+                                const leafActive = pathMatchesNavLeaf(pathname, leaf);
+                                return (
+                                  <Link
+                                    key={leaf.to}
+                                    to={leaf.to}
+                                    onClick={() => setOpen(false)}
+                                    className="flex items-center gap-2 rounded-lg py-2.5 pl-6 pr-3 text-[14px] no-underline transition-colors"
+                                    style={{
+                                      color: textColor,
+                                      opacity: leafActive ? 1 : 0.65,
+                                      background: leafActive ? hoverBg : "transparent",
+                                    }}
+                                  >
+                                    <span
+                                      className="h-[5px] w-[5px] shrink-0 rounded-full"
+                                      style={{ background: isDark ? "rgba(255,255,255,0.2)" : "rgba(55,53,47,0.2)" }}
+                                    />
+                                    {leaf.label}
+                                  </Link>
+                                );
+                              })}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    }
+                    const leaf = child;
+                    const childActive = pathMatchesNavLeaf(pathname, leaf);
                     return (
                       <Link
-                        key={child.to}
-                        to={child.to}
+                        key={leaf.to}
+                        to={leaf.to}
                         onClick={() => setOpen(false)}
                         className="flex items-center gap-2 py-2.5 pl-3 pr-3 rounded-lg no-underline text-[14px] transition-colors"
                         style={{
@@ -154,8 +254,11 @@ export function NavDrawer() {
                           background: childActive ? hoverBg : "transparent",
                         }}
                       >
-                        <span className="w-[5px] h-[5px] rounded-full flex-shrink-0" style={{ background: isDark ? "rgba(255,255,255,0.25)" : "rgba(55,53,47,0.25)" }} />
-                        {child.label}
+                        <span
+                          className="h-[5px] w-[5px] shrink-0 rounded-full"
+                          style={{ background: isDark ? "rgba(255,255,255,0.25)" : "rgba(55,53,47,0.25)" }}
+                        />
+                        {leaf.label}
                       </Link>
                     );
                   })}

@@ -98,6 +98,32 @@ const PlusIcon = () => (
   </svg>
 );
 
+const SettingsOutline = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
+    <path
+      d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const SettingsFill = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
+    <path
+      d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"
+      stroke="currentColor"
+      strokeWidth="2.35"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="2.35" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
 const PersonOutline = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
     <path
@@ -132,7 +158,7 @@ const XIcon = ({ isDark }: { isDark: boolean }) => (
   </div>
 );
 
-type V1Tab = "home" | "card" | "create" | "inbox" | "profile";
+type V1Tab = "home" | "card" | "create" | "inbox" | "system" | "profile";
 
 interface V1TabDef {
   id: V1Tab;
@@ -146,12 +172,14 @@ const V1_TABS: V1TabDef[] = [
   { id: "card", activeIcon: CardFill, inactiveIcon: CardOutline, path: "/app/card" },
   { id: "create", activeIcon: PlusIcon, inactiveIcon: PlusIcon },
   { id: "inbox", activeIcon: InboxFill, inactiveIcon: InboxOutline, path: "/app/inbox" },
+  { id: "system", activeIcon: SettingsFill, inactiveIcon: SettingsOutline, path: "/app/system/avatar" },
   { id: "profile", activeIcon: PersonFill, inactiveIcon: PersonOutline, path: "/app/profile" },
 ];
 
 function getV1ActiveTab(pathname: string): V1Tab {
   if (pathname.startsWith("/app/card")) return "card";
   if (pathname.startsWith("/app/inbox")) return "inbox";
+  if (pathname.startsWith("/app/system")) return "system";
   if (pathname.startsWith("/app/profile")) return "profile";
   return "home";
 }

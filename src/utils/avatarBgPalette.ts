@@ -8,6 +8,16 @@ export const AVATAR_BG_PALETTE = [
   "#E7B38E",
 ] as const;
 
+/** Same six colors as `AVATAR_BG_PALETTE`, row-major for UI picker (2×3). */
+export const AVATAR_BG_SWATCHES = [
+  "#A4DFC0",
+  "#F8DB8B",
+  "#FCBAC3",
+  "#91D9F4",
+  "#D1BDEA",
+  "#E7B38E",
+] as const;
+
 function seedBucket(seed: string, size: number): number {
   if (size <= 0) return 0;
   let h = 0;

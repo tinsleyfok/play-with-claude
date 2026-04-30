@@ -1,0 +1,12 @@
+name = "tinsleytoolbox-avatar-proxy"
+main = "src/index.ts"
+compatibility_date = "2025-04-01"
+workers_dev = true
+
+# Allowed browser origins (comma-separated). Worker rejects everything else
+# at the CORS layer. Add `http://localhost:5173` while developing locally.
+[vars]
+ALLOWED_ORIGINS = "https://tinsleyfok.github.io,http://localhost:5173,http://localhost:5188"
+
+# OPENAI_API_KEY  ← set with `wrangler secret put OPENAI_API_KEY`
+# UNLOCK_PASSWORD ← set with `wrangler secret put UNLOCK_PASSWORD`

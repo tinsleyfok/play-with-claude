@@ -74,7 +74,7 @@ export function OnboardingPage() {
 
           <div
             ref={containerRef}
-            className="absolute left-[4%] right-[4%] bottom-[4%] h-full overflow-hidden pointer-events-auto"
+            className="absolute inset-x-[4%] top-0 bottom-[4%] overflow-hidden pointer-events-auto"
           >
             {INTERESTS.map((item) => (
               <Bubble

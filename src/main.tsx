@@ -15,6 +15,9 @@ import { FlipCardPage } from "./pages/FlipCardPage";
 import { LikePage } from "./pages/LikePage";
 import { SplashPage } from "./pages/SplashPage";
 import { ReferralEntryPage } from "./pages/ReferralEntryPage";
+import { SystemLayout } from "./pages/app/system/SystemLayout";
+import { SystemIndexPage } from "./pages/app/system/SystemIndexPage";
+import { AvatarPage } from "./pages/app/system/AvatarPage";
 import { InspirationPage } from "./pages/InspirationPage";
 import { AnimationInspirationPage } from "./pages/AnimationInspirationPage";
 import { ThemeProvider } from "./hooks/useTheme";
@@ -32,6 +35,10 @@ createRoot(document.getElementById("root")!).render(
             <Route path="mvp/inbox" element={<InboxPage />} />
             <Route path="mvp/profile" element={<ProfilePage />} />
             <Route path="mvp" element={<MvpPage />} />
+            <Route path="system" element={<SystemLayout />}>
+              <Route index element={<SystemIndexPage />} />
+              <Route path="avatar" element={<AvatarPage />} />
+            </Route>
             <Route index element={<FeedPage />} />
             <Route path="card" element={<SingleColumnFeedPage />} />
             <Route path="inbox" element={<InboxPage />} />
